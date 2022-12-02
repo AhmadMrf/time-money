@@ -1,0 +1,15 @@
+.selected_income,
+.total_incomes {
+  display: flex;
+  align-items: center;
+}
+.button {
+  color: var(--white-color);
+  background-color: var(--bg-items-navbar-active-5);
+}
+.button:hover {
+  background-color: var(--bg-items-navbar-active-4);
+}
+.button:active {
+  background-color: var(--bg-items-navbar-active-3);
+}

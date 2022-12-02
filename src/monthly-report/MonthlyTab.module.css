@@ -1,0 +1,28 @@
+.month_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.table {
+  margin: 0.5rem auto;
+}
+
+.table {
+  width: 90%;
+}
+.table td,
+.table th {
+  padding: 1rem 0.5rem;
+  text-align: center;
+}
+.table td {
+  border-left: 2px dashed var(--black-color);
+}
+.table td:last-child {
+  border: none;
+}
+.title {
+  justify-content: center;
+  gap: 1rem;
+}

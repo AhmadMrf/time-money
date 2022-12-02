@@ -1,0 +1,8 @@
+.total {
+  border-top: 1px solid var(--black-color);
+  min-height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+}

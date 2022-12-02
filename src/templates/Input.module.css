@@ -1,0 +1,14 @@
+.input_wrapper {
+  /* border: 1px solid black; */
+  margin: .5rem .2rem;
+  display: flex;
+  flex-direction: column;
+}
+.input {
+  min-height: 2.5rem;
+  width: 100%;
+  border: 1px dashed var(--box-shadows);
+}
+.label {
+  padding: .2rem;
+}

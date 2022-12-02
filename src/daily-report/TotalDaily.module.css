@@ -1,0 +1,7 @@
+.select_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+.select {
+  flex: 1 1;
+}

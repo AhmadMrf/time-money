@@ -1,0 +1,13 @@
+.row {
+  border-bottom: 1px solid var(--black-color);
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.5rem 0.2rem;
+  cursor: pointer;
+}
+.row:hover {
+  background-color: var(--bg-row-hover);
+}
+.row:last-child {
+  border: none;
+}

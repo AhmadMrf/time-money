@@ -1,0 +1,74 @@
+import { useContext } from "react";
+import { Records } from "../context/record-context";
+import ContentWrapper from "../templates/ContentWrapper";
+import RowWrapper from "../templates/RowWrapper";
+import SelectInput from "../templates/SelectInput";
+import Total from "../templates/Total";
+import styles from "./MonthlyTab.module.css";
+export default function MonthlyTab() {
+  const RECORDS = useContext(Records);
+  const totalRecords = RECORDS.reduce((total, record) => {
+    let foundRecord = total.find((item) => item.id === record.w_p_id);
+    if (!foundRecord) {
+      const newTotalItem = {
+        id: record.w_p_id,
+        price: record.price,
+        time: record.time,
+        name: record.description
+      };
+      return [...total, newTotalItem];
+    }
+    foundRecord.price += record.price;
+    foundRecord.time += record.time;
+    return total;
+  }, []);
+  const createTableCells = (field) => {
+    return totalRecords.map((record) => {
+      if (field === "name") return <th key={record.id}>{record.name}</th>;
+      return <td key={record.id}>{record[field]}</td>;
+    });
+  };
+  const calcTotals = (field) => {
+    return totalRecords.reduce((total, record) => total + record[field], 0);
+  };
+  return (
+    <ContentWrapper>
+      <RowWrapper className={styles.month_wrapper}>
+        <h3> فروردین 1400</h3>
+        <table className={styles.table}>
+          <thead className={styles.thead}>
+            <tr>
+              <th></th>
+              {createTableCells("name")}
+              <th>کل</th>
+            </tr>
+          </thead>
+          <tbody className={styles.tbody}>
+            <tr>
+              <td>زمان</td>
+              {createTableCells("time")}
+              <td>{calcTotals("time")}</td>
+            </tr>
+            <tr>
+              <td>مبلغ</td>
+              {createTableCells("price")}
+              <td>{calcTotals("price")}</td>
+            </tr>
+          </tbody>
+        </table>
+      </RowWrapper>
+      <Total className={styles.title}>
+        <SelectInput>
+          <option value="0">بهار</option>
+          <option value="1">تابستان</option>
+          <option value="2">پاییز</option>
+          <option value="3">زمستان</option>
+        </SelectInput>
+        <SelectInput>
+          <option value="1400">1400</option>
+          <option value="1401">1401</option>
+        </SelectInput>
+      </Total>
+    </ContentWrapper>
+  );
+}

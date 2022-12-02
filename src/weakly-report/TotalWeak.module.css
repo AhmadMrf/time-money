@@ -1,0 +1,15 @@
+.select,
+.time,
+.price {
+  flex-basis: 25%;
+  display: flex;
+  gap: 0.5rem;
+}
+.select {
+  padding-left: calc(1rem + 3vw);
+  flex: 1 1;
+}
+
+span {
+  padding: 0.5rem;
+}

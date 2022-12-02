@@ -1,0 +1,15 @@
+.card_wrapper > span {
+  margin-right: calc(1rem + 2vw);
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.card {
+  min-height: 4rem;
+  background-color: var(--white-color);
+  border-radius: 0.3rem;
+  box-shadow: 0 0 10px var(--box-shadows);
+  margin: 0.5rem auto;
+  padding: 0.5rem 0;
+  width: 90%;
+  flex-grow: 1;
+}

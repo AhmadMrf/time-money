@@ -1,0 +1,26 @@
+.row_wrapper {
+  padding: 0 0.5rem;
+  position: relative;
+  margin: 0rem 0.5rem;
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.scrolled_top:before,
+.scrolled_bottom:after {
+  content: "";
+  position: sticky;
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+.scrolled_top:before {
+  box-shadow: 0 0 6px 4px var(--box-shadows);
+  top: 0;
+  border-radius: 0 0 100% 100%;
+}
+.scrolled_bottom:after {
+  box-shadow: 0 0 6px 4px var(--box-shadows);
+  bottom: 0;
+  border-radius: 100% 100% 0 0;
+}

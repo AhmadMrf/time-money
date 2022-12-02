@@ -1,0 +1,14 @@
+.row {
+  cursor: pointer;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-evenly;
+  padding: 0.5rem 1rem;
+}
+.row:first-child {
+  background-color: var(--box-shadows);
+}
+.row span {
+  display: inline-block;
+  min-width: calc(3rem + 2vw);
+}

@@ -1,0 +1,21 @@
+:root,
+html,
+body {
+  --bg-app-color: hsl(204, 15%, 93%);
+  --box-shadows: hsl(200, 15.33%, 73.14%);
+
+  --bg-items-navbar: hsl(200, 15.63%, 62.35%);
+  --bg-items-navbar-active-1: hsl(33.61, 100%, 62.55%);
+  --bg-items-navbar-active-2: hsl(25.65, 100%, 50%);
+  --bg-items-navbar-active-3: hsl(34.12, 100%, 50%);
+  --bg-items-navbar-active-4: hsl(30.37, 100%, 48.04%);
+  --bg-items-navbar-active-5: hsl(14.45, 100%, 62.55%);
+  --bg-items-navbar-hover: hsl(200, 15.38%, 54.12%);
+  --border-items-navbar: hsl(199.53, 18.3%, 46.08%);
+
+  --bg-row-hover: hsl(198.46, 15.66%, 83.73%);
+
+  --black-color: hsl(200, 15%, 15.43%);
+  --white-color: hsl(0, 0%, 98%);
+}
+/* https://materialui.co/colors */

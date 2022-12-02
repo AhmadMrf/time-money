@@ -1,0 +1,10 @@
+.select {
+  background: none;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  direction: ltr;
+  border: 1px dashed var(--box-shadows);
+}
+
+.select:hover {
+  background-color: var(--box-shadows);
+}

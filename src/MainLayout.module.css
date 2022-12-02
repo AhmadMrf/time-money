@@ -1,0 +1,6 @@
+.main_layout {
+  /* position: relative; */
+  /* background-color: var(--bg-app-color); */
+  height: calc(100% - 3rem);
+  padding-top: 0.5rem;
+}

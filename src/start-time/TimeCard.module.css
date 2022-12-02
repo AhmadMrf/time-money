@@ -1,0 +1,34 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  padding: 0;
+}
+.title {
+  align-self: stretch;
+  background-color: blueviolet;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.record_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 0.5rem;
+}
+.record_info span:last-child {
+  font-size: 2rem;
+}
+.buttons {
+}
+
+.submit_button {
+  color: var(--white-color);
+  background-color: var(--bg-items-navbar-active-5);
+}
+.submit_button:hover {
+  background-color: var(--bg-items-navbar-active-4);
+}
+.submit_button:active {
+  background-color: var(--bg-items-navbar-active-3);
+}

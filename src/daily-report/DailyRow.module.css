@@ -1,0 +1,28 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  /* border: 1px solid red; */
+}
+.table tr {
+  cursor: pointer;
+  /* padding: 1rem 0.5rem; */
+  border-bottom: 1px solid var(--black-color);
+}
+.table tr:hover {
+  background-color: var(--bg-row-hover);
+}
+.table tr:last-child {
+  border: none;
+}
+.table td {
+  padding: 1rem 0.5rem;
+}
+.table td:first-child {
+  min-width: 4.5rem;
+  position: relative;
+}
+.table td:first-child::after {
+  content: "=>";
+  position: absolute;
+  left: calc(-1rem + 5vw);
+}
