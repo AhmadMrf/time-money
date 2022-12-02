@@ -2,13 +2,16 @@ import Button from "../templates/Button";
 import Card from "../templates/Card";
 import styles from "./TimeCard.module.css";
 
-export default function TimeCard() {
+export default function TimeCard({ id, place, startTime }) {
+  let formattedStartTime = new Intl.DateTimeFormat("fa-ir", {
+    timeStyle: "short",
+  }).format(startTime);
   return (
     <Card className={styles.card}>
-      <span className={styles.title}>مطب</span>
+      <span className={styles.title}>{place}</span>
       <div className={styles.record_info}>
         <span>شروع :</span>
-        <span> 12:45</span>
+        <span>{formattedStartTime}</span>
       </div>
       <div className={styles.buttons}>
         <Button className={styles.submit_button}>پایان</Button>

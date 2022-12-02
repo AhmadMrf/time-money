@@ -5,14 +5,15 @@
 }
 .title {
   /* align-self: stretch; */
-  background-color: blueviolet;
+  border-left: 1px solid var(--box-shadows);
+  /* background-color: blueviolet; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .record_info {
   /* width: 100%; */
-  border: 1px solid firebrick;
+  /* border: 1px solid firebrick; */
   display: flex;
   justify-content: center;
   /* align-items: center; */
@@ -25,12 +26,13 @@
   font-size: 1.3rem;
   padding: 0 0.5rem;
   text-align: center;
-  border: 1px solid red;
+  border-left: 1px solid var(--box-shadows);
 }
 .info {
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid red;
+  padding: 0 0.2rem;
+  /* border: 1px solid red; */
 }
 .input {
   flex: 1 1 60%;
@@ -44,6 +46,7 @@
 .buttons button {
   display: block;
   height: 100%;
+  width: 100%;
 }
 
 .submit_button {

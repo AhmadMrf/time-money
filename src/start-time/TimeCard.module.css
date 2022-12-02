@@ -5,10 +5,11 @@
 }
 .title {
   align-self: stretch;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
   display: flex;
   align-items: center;
   justify-content: center;
+  border-left: 1px solid var(--box-shadows);
 }
 .record_info {
   display: flex;
@@ -19,7 +20,8 @@
 .record_info span:last-child {
   font-size: 2rem;
 }
-.buttons {
+.buttons button {
+  width: 100%;
 }
 
 .submit_button {
