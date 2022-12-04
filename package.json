@@ -6,6 +6,7 @@
   "main": "src/index.js",
   "dependencies": {
     "jalaali-js": "1.2.6",
+    "parse": "^3.5.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.3",
