@@ -3,11 +3,15 @@ import RecordProvider from "./context/record-context";
 import Navbar from "./navbar/Navbar";
 import MyRoutes from "./MyRoutes";
 import MainLayout from "./MainLayout";
-import "./api/parse-config";
-import { useGetRecords } from "./hooks/useGetRecord";
+// import Parse from "parse/dist/parse.min.js";
+import "./utils/parse-config";
+// import { useGetDataFromB4E } from "./hooks/useGetDataFromB4E";
+import { useGetInMonthRecords } from "./hooks/useGetInMonthRecords";
+
 export default function App() {
-  const get = useGetRecords();
-  console.log(get);
+  const { inMonthData } = useGetInMonthRecords(1401, 8);
+  let { records } = inMonthData;
+  console.log(records);
   return (
     <RecordProvider>
       <MainLayout>
