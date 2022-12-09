@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 import jalaali from "jalaali-js";
-
+const defaultRecords = {
+  error: null,
+  inMonthObject: { records: [], startTime: null, endTime: null },
+};
 export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
-  const RECORD_TABLE = "record";
-  const DATE_COLUMN = "date";
-  const [records, setRecords] = useState("");
+  const RECORD_TABLE = "records";
+  const DATE_COLUMN = "start_time";
+  const [records, setRecords] = useState(defaultRecords);
   useEffect(() => {
     async function getData() {
       let day = jalaali.jalaaliMonthLength(jalaaliYear, jalaaliMonth);
@@ -69,14 +72,14 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
 
         setRecords({
           error: null,
-          inMonthData: {
+          inMonthObject: {
             startTime,
             endTime,
             records: data,
           },
         });
       } catch (error) {
-        setRecords({ error: error, inMonthData: null });
+        setRecords({ error: error, inMonthObject: null });
       }
     }
     getData();
