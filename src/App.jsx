@@ -4,8 +4,7 @@ import Navbar from "./navbar/Navbar";
 import MyRoutes from "./MyRoutes";
 import MainLayout from "./MainLayout";
 // import Parse from "parse/dist/parse.min.js";
-import "./utils/parse-config";
-
+import "./config/parse-config";
 export default function App() {
   return (
     <RecordProvider>

@@ -1,19 +1,23 @@
 import { useContext } from "react";
 import { recordsData } from "../context/record-context";
+import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
 import Total from "../templates/Total";
 import styles from "./MonthlyTab.module.css";
+
 export default function MonthlyTab() {
+  const info = useGetDataFromDb("work_place", ["name"]);
+  // console.log(info);
   const { error, inMonthObject } = useContext(recordsData);
   const { records } = inMonthObject;
   console.log(error, records);
   const totalRecords = records.reduce((total, record) => {
-    let foundRecord = total.find((item) => item.id === record.w_p_id);
+    let foundRecord = total.find((item) => item.id === record.work_place.id);
     if (!foundRecord) {
       const newTotalItem = {
-        id: record.w_p_id,
+        id: record.work_place.id,
         price: record.price,
         time: record.time,
         name: record.description,
@@ -45,7 +49,7 @@ export default function MonthlyTab() {
   return (
     <ContentWrapper>
       <RowWrapper className={styles.month_wrapper}>
-        <h3> فروردین 1400</h3>
+        <h3>{`${inMonthObject.month} ${inMonthObject.year} `}</h3>
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>
