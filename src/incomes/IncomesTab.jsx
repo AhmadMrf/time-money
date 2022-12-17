@@ -1,10 +1,10 @@
+import { useState } from "react";
+import { useIncomeContext } from "../context/income-conext";
+import RowWrapper from "../templates/RowWrapper";
+import ContentWrapper from "../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
 import styles from "./IncomesTab.module.css";
 import TotalIncomes from "./TotalIncomes";
-import RowWrapper from "../templates/RowWrapper";
-import { useState } from "react";
-import ContentWrapper from "../templates/ContentWrapper";
-
 const INCOMES = [
   {
     id: 1,
@@ -13,7 +13,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 08 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 100
+    price: 100,
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 06 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 500
+    price: 500,
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 250
+    price: 250,
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
+    price: 120,
   },
   {
     id: 5,
@@ -49,7 +49,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
+    price: 120,
   },
   {
     id: 6,
@@ -58,7 +58,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
+    price: 120,
   },
   {
     id: 11,
@@ -67,7 +67,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 08 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 100
+    price: 100,
   },
   {
     id: 12,
@@ -76,7 +76,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 06 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 500
+    price: 500,
   },
   {
     id: 13,
@@ -85,7 +85,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 350
+    price: 350,
   },
   {
     id: 14,
@@ -94,7 +94,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
+    price: 120,
   },
   {
     id: 15,
@@ -103,7 +103,7 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
+    price: 120,
   },
   {
     id: 16,
@@ -112,13 +112,14 @@ const INCOMES = [
     income_date: new Date(
       "Tue Nov 07 2022 12:26:00 GMT+0330 (Iran Standard Time)"
     ),
-    price: 120
-  }
+    price: 120,
+  },
 ];
 
 export default function IncomesTab() {
   const [selectedId, setSelectedId] = useState(1);
-
+  const { incomes, loading, error } = useIncomeContext();
+  // console.log(data);
   const workPlaces = () => {
     return INCOMES.reduce((filteredIncome, income) => {
       let foundIncome = filteredIncome.find(
@@ -127,7 +128,7 @@ export default function IncomesTab() {
       if (foundIncome) return filteredIncome;
       return [
         ...filteredIncome,
-        { id: income.w_p_id, name: income.description }
+        { id: income.w_p_id, name: income.description },
       ];
     }, []);
   };
@@ -140,6 +141,24 @@ export default function IncomesTab() {
   const onSelectedPrice = (id) => {
     setSelectedId(id);
   };
+  if (error) {
+    return (
+      <ContentWrapper>
+        <RowWrapper className={styles.center}>
+          <h3>خطا در دریافت اطلاعات</h3>
+        </RowWrapper>
+      </ContentWrapper>
+    );
+  }
+  if (loading) {
+    return (
+      <ContentWrapper>
+        <RowWrapper className={styles.center}>
+          <h3>خطا در دریافت اطلاعات</h3>
+        </RowWrapper>
+      </ContentWrapper>
+    );
+  }
   return (
     <ContentWrapper>
       <RowWrapper>
