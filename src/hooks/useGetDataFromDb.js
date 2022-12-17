@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 
-const defaultInfo = { error: null, info: [] };
+const defaultData = { error: null, data: [] };
 export const useGetDataFromDb = (table, fields = []) => {
-  const [info, setInfo] = useState(defaultInfo);
+  const [data, setData] = useState(defaultData);
+  const [loading, setLoading] = useState(true);
+
   const query = new Parse.Query(table);
   useEffect(() => {
     async function getData() {
       try {
-        const info = await query.map((item) => {
+        const data = await query.map((item) => {
           if (fields.length) {
             return fields.map((field) => {
               return { field: item.attributes[field] };
@@ -16,12 +18,14 @@ export const useGetDataFromDb = (table, fields = []) => {
           }
           return item.attributes;
         });
-        setInfo({ error: null, info });
+        setData({ error: null, data });
+        setLoading(false);
       } catch (error) {
-        setInfo({ error, info: null });
+        setData({ error, data: null });
+        setLoading(false);
       }
     }
     getData();
   }, []);
-  return info;
+  return { ...data, loading };
 };

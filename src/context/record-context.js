@@ -4,6 +4,7 @@ import { useGetInMonthRecords } from "../hooks/useGetInMonthRecords";
 const defaultData = {
   inMonthObject: {},
   error: null,
+  loading: true,
 };
 const recordsData = createContext(defaultData);
 

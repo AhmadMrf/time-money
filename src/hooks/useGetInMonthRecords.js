@@ -9,6 +9,7 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
   const RECORD_TABLE = "records";
   const DATE_COLUMN = "start_time";
   const [records, setRecords] = useState(defaultRecords);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function getData() {
       const { beginMonthDate, endMonthDate, beginDate, endDate } =
@@ -37,11 +38,13 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
             records: data,
           },
         });
+        setLoading(false);
       } catch (error) {
         setRecords({ error: error, inMonthObject: null });
+        setLoading(false);
       }
     }
     getData();
   }, [jalaaliYear, jalaaliMonth]);
-  return records;
+  return { ...records, loading };
 }

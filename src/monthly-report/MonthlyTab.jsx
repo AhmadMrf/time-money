@@ -10,9 +10,8 @@ import styles from "./MonthlyTab.module.css";
 export default function MonthlyTab() {
   // const info = useGetDataFromDb("work_place", ["name"]);
   // console.log(info);
-  const { error, inMonthObject } = useGetGlobalContext();
+  const { loading, error, inMonthObject } = useGetGlobalContext();
   const { records } = inMonthObject;
-  console.log(error, records);
   const totalRecords = records.reduce((total, record) => {
     let foundRecord = total.find((item) => item.id === record.work_place.id);
     if (!foundRecord) {
@@ -42,6 +41,15 @@ export default function MonthlyTab() {
       <ContentWrapper>
         <RowWrapper className={styles.month_wrapper}>
           <h3> خطا در دریافت اطلاعات</h3>
+        </RowWrapper>
+      </ContentWrapper>
+    );
+  }
+  if (loading) {
+    return (
+      <ContentWrapper>
+        <RowWrapper className={styles.month_wrapper}>
+          <h3> در حال دریافت اطلاعات</h3>
         </RowWrapper>
       </ContentWrapper>
     );
