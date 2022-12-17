@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { recordsData } from "../context/record-context";
-import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
+// import { useContext } from "react";
+import { useGetGlobalContext } from "../context/record-context";
+// import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
@@ -8,9 +8,9 @@ import Total from "../templates/Total";
 import styles from "./MonthlyTab.module.css";
 
 export default function MonthlyTab() {
-  const info = useGetDataFromDb("work_place", ["name"]);
+  // const info = useGetDataFromDb("work_place", ["name"]);
   // console.log(info);
-  const { error, inMonthObject } = useContext(recordsData);
+  const { error, inMonthObject } = useGetGlobalContext();
   const { records } = inMonthObject;
   console.log(error, records);
   const totalRecords = records.reduce((total, record) => {
