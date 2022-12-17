@@ -1,6 +1,4 @@
-// import { useContext } from "react";
 import { useGetGlobalContext } from "../context/record-context";
-// import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
@@ -8,10 +6,9 @@ import Total from "../templates/Total";
 import styles from "./MonthlyTab.module.css";
 
 export default function MonthlyTab() {
-  // const info = useGetDataFromDb("work_place", ["name"]);
-  // console.log(info);
-  const { loading, error, inMonthObject } = useGetGlobalContext();
+  const { loading, error, inMonthObject, workPlaces } = useGetGlobalContext();
   const { records } = inMonthObject;
+  console.log(workPlaces);
   const totalRecords = records.reduce((total, record) => {
     let foundRecord = total.find((item) => item.id === record.work_place.id);
     if (!foundRecord) {

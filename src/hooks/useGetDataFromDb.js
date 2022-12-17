@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 
 const defaultData = { error: null, data: [] };
-export const useGetDataFromDb = (table, fields = []) => {
+export const useGetDataFromDb = (table, ...fields) => {
   const [data, setData] = useState(defaultData);
   const [loading, setLoading] = useState(true);
 
@@ -12,11 +12,13 @@ export const useGetDataFromDb = (table, fields = []) => {
       try {
         const data = await query.map((item) => {
           if (fields.length) {
-            return fields.map((field) => {
-              return { field: item.attributes[field] };
+            let newItem = {};
+            fields.forEach((field) => {
+              newItem[field] = item.attributes[field];
             });
+            return { id: item.id, ...newItem };
           }
-          return item.attributes;
+          return { id: item.id, ...item.attributes };
         });
         setData({ error: null, data });
         setLoading(false);
@@ -26,6 +28,6 @@ export const useGetDataFromDb = (table, fields = []) => {
       }
     }
     getData();
-  }, []);
+  }, [table, ...fields]);
   return { ...data, loading };
 };
