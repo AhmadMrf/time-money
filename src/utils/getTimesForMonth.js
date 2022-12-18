@@ -1,6 +1,8 @@
 import jalaali from "jalaali-js";
 
-export function getTimesForMonth(jalaaliYear, jalaaliMonth) {
+export function getTimesForMonth(jalaaliYearString, jalaaliMonthString) {
+  const jalaaliYear = +jalaaliYearString;
+  const jalaaliMonth = +jalaaliMonthString;
   let day = jalaali.jalaaliMonthLength(jalaaliYear, jalaaliMonth);
   let {
     gy: beginYear,
@@ -15,7 +17,6 @@ export function getTimesForMonth(jalaaliYear, jalaaliMonth) {
 
   let beginMonthDate = new Date(beginYear, beginMonth - 1, beginDay);
   let endMonthDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
-
   let {
     saturday: { jy: firstYearFromDb, jm: firstMonthFromDb, jd: firstDayFromDb },
   } = jalaali.jalaaliWeek(jalaaliYear, jalaaliMonth, 1);
@@ -37,6 +38,7 @@ export function getTimesForMonth(jalaaliYear, jalaaliMonth) {
     59,
     999
   );
+
   return {
     beginDate,
     endDate,
