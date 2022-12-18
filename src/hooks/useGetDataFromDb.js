@@ -8,6 +8,7 @@ export const useGetDataFromDb = (table, ...fields) => {
 
   const query = new Parse.Query(table);
   useEffect(() => {
+    setLoading(true);
     async function getData() {
       try {
         const data = await query.map((item) => {
