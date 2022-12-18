@@ -1,4 +1,5 @@
 import { useGlobalContext } from "../context/record-context";
+import { monthes, years } from "../data/dates";
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
@@ -11,16 +12,21 @@ export default function MonthlyTab() {
     error: { inMonthError },
     inMonthObject,
     workPlaces,
+    handleMonthTab,
   } = useGlobalContext();
   const { records } = inMonthObject;
   const totalRecords = records.reduce((total, record) => {
+    const { name } = workPlaces?.find(
+      (item) => item.id === record.work_place.id
+    );
+    if (record.outOfDate) return total;
     let foundRecord = total.find((item) => item.id === record.work_place.id);
     if (!foundRecord) {
       const newTotalItem = {
         id: record.work_place.id,
         price: record.price,
         time: record.time,
-        name: record.description,
+        name,
       };
       return [...total, newTotalItem];
     }
@@ -52,13 +58,67 @@ export default function MonthlyTab() {
         <RowWrapper className={styles.month_wrapper}>
           <h3> در حال دریافت اطلاعات</h3>
         </RowWrapper>
+        <Total className={styles.title}>
+          <SelectInput
+            onChange={(e) => handleMonthTab(e.target.value, "month")}
+            value={inMonthObject.month}>
+            {monthes.map((month, index) => (
+              <option value={index + 1} key={index}>
+                {month}
+              </option>
+            ))}
+          </SelectInput>
+          <SelectInput
+            onChange={(e) => handleMonthTab(e.target.value, "year")}
+            value={inMonthObject.year}>
+            {years.map((year, index) => (
+              <option value={year} key={index}>
+                {year}
+              </option>
+            ))}
+          </SelectInput>
+        </Total>
+      </ContentWrapper>
+    );
+  }
+  if (!inMonthObject.records.length) {
+    return (
+      <ContentWrapper>
+        <RowWrapper className={styles.month_wrapper}>
+          <h3>{`${monthes[inMonthObject.month - 1]} - ${
+            inMonthObject.year
+          } `}</h3>
+          <h3> اطلاعاتی ثبت نشده</h3>
+        </RowWrapper>
+        <Total className={styles.title}>
+          <SelectInput
+            onChange={(e) => handleMonthTab(e.target.value, "month")}
+            value={inMonthObject.month}>
+            {monthes.map((month, index) => (
+              <option value={index + 1} key={index}>
+                {month}
+              </option>
+            ))}
+          </SelectInput>
+          <SelectInput
+            onChange={(e) => handleMonthTab(e.target.value, "year")}
+            value={inMonthObject.year}>
+            {years.map((year, index) => (
+              <option value={year} key={index}>
+                {year}
+              </option>
+            ))}
+          </SelectInput>
+        </Total>
       </ContentWrapper>
     );
   }
   return (
     <ContentWrapper>
       <RowWrapper className={styles.month_wrapper}>
-        <h3>{`${inMonthObject.month} ${inMonthObject.year} `}</h3>
+        <h3>{`${monthes[inMonthObject.month - 1]} - ${
+          inMonthObject.year
+        } `}</h3>
         <table className={styles.table}>
           <thead className={styles.thead}>
             <tr>
@@ -81,16 +141,25 @@ export default function MonthlyTab() {
           </tbody>
         </table>
       </RowWrapper>
+      )
       <Total className={styles.title}>
-        <SelectInput>
-          <option value='0'>بهار</option>
-          <option value='1'>تابستان</option>
-          <option value='2'>پاییز</option>
-          <option value='3'>زمستان</option>
+        <SelectInput
+          onChange={(e) => handleMonthTab(e.target.value, "month")}
+          value={inMonthObject.month}>
+          {monthes.map((month, index) => (
+            <option value={index + 1} key={index}>
+              {month}
+            </option>
+          ))}
         </SelectInput>
-        <SelectInput>
-          <option value='1400'>1400</option>
-          <option value='1401'>1401</option>
+        <SelectInput
+          onChange={(e) => handleMonthTab(e.target.value, "year")}
+          value={inMonthObject.year}>
+          {years.map((year, index) => (
+            <option value={year} key={index}>
+              {year}
+            </option>
+          ))}
         </SelectInput>
       </Total>
     </ContentWrapper>
