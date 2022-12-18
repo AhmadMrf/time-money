@@ -1,4 +1,4 @@
-import { useGetGlobalContext } from "../context/record-context";
+import { useGlobalContext } from "../context/record-context";
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
@@ -6,9 +6,13 @@ import Total from "../templates/Total";
 import styles from "./MonthlyTab.module.css";
 
 export default function MonthlyTab() {
-  const { loading, error, inMonthObject, workPlaces } = useGetGlobalContext();
+  const {
+    loading: { inMonthLoading },
+    error: { inMonthError },
+    inMonthObject,
+    workPlaces,
+  } = useGlobalContext();
   const { records } = inMonthObject;
-  console.log(workPlaces);
   const totalRecords = records.reduce((total, record) => {
     let foundRecord = total.find((item) => item.id === record.work_place.id);
     if (!foundRecord) {
@@ -33,7 +37,7 @@ export default function MonthlyTab() {
   const calcTotals = (field) => {
     return totalRecords.reduce((total, record) => total + record[field], 0);
   };
-  if (error) {
+  if (inMonthError) {
     return (
       <ContentWrapper>
         <RowWrapper className={styles.month_wrapper}>
@@ -42,7 +46,7 @@ export default function MonthlyTab() {
       </ContentWrapper>
     );
   }
-  if (loading) {
+  if (inMonthLoading) {
     return (
       <ContentWrapper>
         <RowWrapper className={styles.month_wrapper}>

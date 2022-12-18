@@ -6,12 +6,13 @@ import Button from "../templates/Button";
 import styles from "./TotalIncomes.module.css";
 export default function TotalIncomes({
   selected,
+  selectedId,
   total,
   onSelect,
-  workPlaces
+  workPlaces,
 }) {
-  const [selectedItem, setSelectedItem] = useState(1);
-
+  const [selectedItem, setSelectedItem] = useState(selectedId);
+  // console.log(selectedId);
   const options = workPlaces.map((item) => (
     <option key={item.id} value={item.id}>
       {item.name}
@@ -28,8 +29,7 @@ export default function TotalIncomes({
         <SelectInput
           className={styles.select}
           onChange={selectHandler}
-          value={selectedItem}
-        >
+          value={selectedItem}>
           {options}
         </SelectInput>
         <span>: {selected}</span>
