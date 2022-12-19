@@ -32,7 +32,9 @@ main {
   direction: rtl;
   background-color: var(--bg-app-color);
 }
-
+select:disabled {
+  cursor: not-allowed;
+}
 @media screen and (max-height: 400px) {
   main {
   }

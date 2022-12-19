@@ -1,21 +1,28 @@
 import { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
+import jalaali from "jalaali-js";
+
 import { getTimesForMonth } from "../utils/getTimesForMonth";
+const now = new Date(Date.now());
+const { jy: year } = jalaali.toJalaali(now);
+const { jm: month } = jalaali.toJalaali(now);
+
 const defaultRecords = {
-  error: null,
   inMonthObject: {
     records: [],
     beginDate: null,
     endDate: null,
-    month: 0,
-    year: 1400,
+    month,
+    year,
   },
 };
-export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
+
+export function useGetInMonthRecords(jalaaliYear = year, jalaaliMonth = month) {
   const RECORD_TABLE = "records";
   const DATE_COLUMN = "start_time";
   const [records, setRecords] = useState(defaultRecords);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   useEffect(() => {
     setLoading(true);
     async function getData() {
@@ -28,6 +35,7 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
       query.lessThanOrEqualTo(DATE_COLUMN, endDate);
 
       try {
+        // throw new Error("in month error");
         const data = await query.map((item) => {
           let itemTime = new Date(item.attributes[DATE_COLUMN]).getTime();
           if (itemTime > beginMonthTime && itemTime < endMonthTime)
@@ -36,7 +44,6 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
         });
 
         setRecords({
-          error: null,
           inMonthObject: {
             beginDate,
             endDate,
@@ -47,11 +54,13 @@ export function useGetInMonthRecords(jalaaliYear, jalaaliMonth) {
         });
         setLoading(false);
       } catch (error) {
-        setRecords({ error: error, inMonthObject: null });
+        setRecords(defaultRecords);
         setLoading(false);
+        setError(true);
+        console.log(error);
       }
     }
     getData();
   }, [jalaaliYear, jalaaliMonth]);
-  return { ...records, loading };
+  return { ...records, loading, error };
 }

@@ -27,10 +27,12 @@ export default function TotalIncomes({
       <div className={styles.total_incomes}> کل دریافتی : {total}</div>
       <div className={styles.selected_income}>
         <SelectInput
+          disabled={selectedId === "noId"}
           className={styles.select}
           onChange={selectHandler}
           value={selectedItem}>
           {options}
+          <option value={"noId"}>بدون اطلاعات</option>
         </SelectInput>
         <span>: {selected}</span>
       </div>

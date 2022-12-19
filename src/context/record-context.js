@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useGetInMonthRecords } from "../hooks/useGetInMonthRecords";
 import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
-import jalaali from "jalaali-js";
 const defaultData = {
   inMonthObject: {},
   workPlaces: [],
@@ -9,17 +8,11 @@ const defaultData = {
   loading: true,
   handleMonthTab: (value, date) => {},
 };
-function initialDate() {
-  const now = new Date(Date.now());
-  const { jy: year } = jalaali.toJalaali(now);
-  const { jm: month } = jalaali.toJalaali(now);
-  return { year, month };
-}
 
 const recordsData = createContext(defaultData);
 
 function RecordProvider({ children }) {
-  const [date, setDate] = useState(initialDate);
+  const [date, setDate] = useState(null);
   function handleMonthTab(value, dateInfo) {
     if (dateInfo === "month") {
       setDate({ ...date, month: value });
@@ -31,7 +24,7 @@ function RecordProvider({ children }) {
     inMonthObject,
     loading: inMonthLoading,
     error: inMonthError,
-  } = useGetInMonthRecords(date.year, date.month);
+  } = useGetInMonthRecords();
   const {
     data: workPlaces,
     loading: workPlaceLoading,
