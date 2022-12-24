@@ -1,6 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import { useGetInMonthRecords } from "../hooks/useGetInMonthRecords";
-import { useGetDataFromDb } from "../hooks/useGetDataFromDb";
+
+import useGetInMonthRecords from "../hooks/useGetInMonthRecords";
+import useGetData from "../hooks/useGetData";
+
 const defaultData = {
   inMonthObject: {},
   workPlaces: [],
@@ -11,8 +13,9 @@ const defaultData = {
 
 const recordsData = createContext(defaultData);
 
-function RecordProvider({ children }) {
+const RecordProvider = ({ children }) => {
   const [date, setDate] = useState(null);
+
   function handleMonthTab(value, dateInfo) {
     if (dateInfo === "month") {
       setDate({ ...date, month: value });
@@ -29,13 +32,13 @@ function RecordProvider({ children }) {
     data: workPlaces,
     loading: workPlaceLoading,
     error: workPlaceError,
-  } = useGetDataFromDb("work_place", "name");
+  } = useGetData("work_place", "name");
 
   const {
     data: incomes,
     loading: incomeLoading,
     error: incomeError,
-  } = useGetDataFromDb("income");
+  } = useGetData("income");
 
   const contextData = {
     workPlaces,
@@ -45,10 +48,11 @@ function RecordProvider({ children }) {
     error: { inMonthError, workPlaceError, incomeError },
     handleMonthTab,
   };
+
   return (
     <recordsData.Provider value={contextData}>{children}</recordsData.Provider>
   );
-}
+};
 const useGlobalContext = () => {
   return useContext(recordsData);
 };

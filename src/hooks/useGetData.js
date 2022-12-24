@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
+
 import Parse from "parse/dist/parse.min.js";
 
-export const useGetDataFromDb = (table, ...fields) => {
+const useGetData = (table, ...fields) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -11,7 +12,7 @@ export const useGetDataFromDb = (table, ...fields) => {
     setLoading(true);
     async function getData() {
       try {
-        throw new Error("in month error");
+        // throw new Error("in month error");
 
         const data = await query.map((item) => {
           if (fields.length) {
@@ -36,3 +37,5 @@ export const useGetDataFromDb = (table, ...fields) => {
   }, [table, ...fields]);
   return { data, loading, error };
 };
+
+export default useGetData;

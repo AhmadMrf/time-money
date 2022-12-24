@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 import Parse from "parse/dist/parse.min.js";
 
-export default function useSendData() {
+const useSendData = () => {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -30,4 +31,6 @@ export default function useSendData() {
   };
 
   return { sendData, loading, error, result };
-}
+};
+
+export default useSendData;

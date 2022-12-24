@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+
 import Parse from "parse/dist/parse.min.js";
 import jalaali from "jalaali-js";
 
 import { getTimesForMonth } from "../utils/getTimesForMonth";
+
 const now = new Date(Date.now());
 const { jy: year } = jalaali.toJalaali(now);
 const { jm: month } = jalaali.toJalaali(now);
@@ -17,7 +19,7 @@ const defaultRecords = {
   },
 };
 
-export function useGetInMonthRecords(jalaaliYear = year, jalaaliMonth = month) {
+const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
   const RECORD_TABLE = "records";
   const DATE_COLUMN = "start_time";
   const [records, setRecords] = useState(defaultRecords);
@@ -63,4 +65,6 @@ export function useGetInMonthRecords(jalaaliYear = year, jalaaliMonth = month) {
     getData();
   }, [jalaaliYear, jalaaliMonth]);
   return { ...records, loading, error };
-}
+};
+
+export default useGetInMonthRecords;
