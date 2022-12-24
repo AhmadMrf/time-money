@@ -1,18 +1,14 @@
 import { useState } from "react";
+import useSendData from "../hooks/useSendData";
 import SelectInput from "../templates/SelectInput";
 import Total from "../templates/Total";
 import Button from "../templates/Button";
-
 import styles from "./TotalIncomes.module.css";
-export default function TotalIncomes({
-  selected,
-  selectedId,
-  total,
-  onSelect,
-  workPlaces,
-}) {
+
+export default function TotalIncomes({ selected, selectedId, total, onSelect, workPlaces }) {
   const [selectedItem, setSelectedItem] = useState(selectedId);
-  // console.log(selectedId);
+  const { sendData, loading, error, result } = useSendData();
+  const noId = selectedId === "noId";
   const options = workPlaces.map((item) => (
     <option key={item.id} value={item.id}>
       {item.name}
@@ -26,17 +22,15 @@ export default function TotalIncomes({
     <Total>
       <div className={styles.total_incomes}> کل دریافتی : {total}</div>
       <div className={styles.selected_income}>
-        <SelectInput
-          disabled={selectedId === "noId"}
-          className={styles.select}
-          onChange={selectHandler}
-          value={selectedItem}>
+        <SelectInput disabled={noId} className={styles.select} onChange={selectHandler} value={selectedItem}>
           {options}
-          <option value={"noId"}>بدون اطلاعات</option>
+          {noId && <option value={"noId"}>بدون اطلاعات</option>}
         </SelectInput>
         <span>: {selected}</span>
       </div>
-      <Button className={styles.button}> افزودن دریافتی </Button>
+      <Button onClick={() => sendData("income", {})} className={styles.button}>
+        افزودن دریافتی
+      </Button>
     </Total>
   );
 }
