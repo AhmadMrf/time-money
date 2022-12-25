@@ -2,22 +2,34 @@ import SelectInput from "../templates/SelectInput";
 import Total from "../templates/Total";
 import styles from "./TotalWeak.module.css";
 
-export default function TotalWeak({
+const TotalWeak = ({
   weekIncome,
-  weekNumber,
   weekTime,
-  className
-}) {
+  dateSepratedWithWeek,
+  handleChangeWeek,
+}) => {
+  const selectOptions = dateSepratedWithWeek.map((item) => {
+    const startTime = item.startDate.toLocaleDateString("fa-ir", {
+      month: "short",
+      day: "numeric",
+    });
+    const endTime = item.endDate.toLocaleDateString("fa-ir", {
+      month: "short",
+      day: "numeric",
+    });
+    const value = `${startTime} تا ${endTime}`;
+    return (
+      <option key={item.id} value={item.id}>
+        {value}
+      </option>
+    );
+  });
   return (
     <Total>
-      <SelectInput className={styles.select}>
-        <option value="">هفته {weekNumber} (1 تا 8 فروردین)</option>
-        <option value="">هفته {weekNumber} (9 تا 12 فروردین)</option>
-        <option value="">هفته {weekNumber} (13 تا 18 فروردین)</option>
-        <option value="">هفته {weekNumber} (19 تا 28 فروردین)</option>
-      </SelectInput>
+      <SelectInput className={styles.select}>{selectOptions}</SelectInput>
       <span className={styles.price}>مبلغ کل : {weekIncome}</span>
       <span className={styles.time}>زمان کل : {weekTime}</span>
     </Total>
   );
-}
+};
+export default TotalWeak;

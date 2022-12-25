@@ -7,6 +7,7 @@ import useGetData from "../hooks/useGetData";
 const defaultData = {
   inMonthObject: {},
   workPlaces: [],
+  incomes:[],
   error: null,
   loading: true,
   handleMonthTab: (value, date) => {},

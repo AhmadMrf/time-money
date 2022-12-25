@@ -1,6 +1,6 @@
 import jalaali from "jalaali-js";
 
-export function getTimesForMonth(jalaaliYearString, jalaaliMonthString) {
+const getTimesForMonth = (jalaaliYearString, jalaaliMonthString) => {
   const jalaaliYear = +jalaaliYearString;
   const jalaaliMonth = +jalaaliMonthString;
   let day = jalaali.jalaaliMonthLength(jalaaliYear, jalaaliMonth);
@@ -45,8 +45,8 @@ export function getTimesForMonth(jalaaliYearString, jalaaliMonthString) {
     beginMonthDate,
     endMonthDate,
   };
-}
-
+};
+export { getTimesForMonth };
 // beginDate => the saturday of week that the first day of month is inside it
 // endDate => the friday of week that the last day of month is inside it
 // beginMonthDate => the first day of month
