@@ -1,5 +1,5 @@
 .row {
-  display: flex;
+  /* display: flex; */
   justify-content: space-evenly;
   cursor: pointer;
   gap: 1rem;
@@ -8,7 +8,10 @@
 .row:first-child {
   background-color: var(--box-shadows);
 }
+.row:first-child span {
+  min-width: calc(3rem + 5vw);
+}
 .row span {
   display: inline-block;
-  min-width: calc(1rem + 2vw);
+  min-width: calc(3rem + 5vw);
 }

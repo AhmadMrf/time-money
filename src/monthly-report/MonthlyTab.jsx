@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useGlobalContext } from "../context/record-context";
 import { monthes, years } from "../data/dates";
+
 import ContentWrapper from "../templates/ContentWrapper";
 import RowWrapper from "../templates/RowWrapper";
 import SelectInput from "../templates/SelectInput";
@@ -8,7 +10,7 @@ import Button from "../templates/Button";
 
 import styles from "./MonthlyTab.module.css";
 
-export default function MonthlyTab() {
+const MonthlyTab = () => {
   const {
     loading: { inMonthLoading },
     error: { inMonthError },
@@ -17,6 +19,8 @@ export default function MonthlyTab() {
     handleMonthTab,
   } = useGlobalContext();
 
+  const [year, setYear] = useState(inMonthObject.year);
+  const [month, setMonth] = useState(inMonthObject.month);
   const totalRecords = inMonthObject.records?.reduce((total, record) => {
     const workPlace = workPlaces?.find(
       (item) => item.id === record.work_place.id
@@ -45,6 +49,16 @@ export default function MonthlyTab() {
   const calcTotals = (field) => {
     return totalRecords?.reduce((total, record) => total + record[field], 0);
   };
+  const handleChange = (value, date) => {
+    console.log(value);
+    if (date === "month") {
+      setMonth(+value);
+    } else {
+      setYear(+value);
+    }
+    handleMonthTab(value, date);
+  };
+
   let noResult = null;
   if (!inMonthObject.records.length) {
     noResult = (
@@ -55,26 +69,28 @@ export default function MonthlyTab() {
         <h4> اطلاعاتی ثبت نشده</h4>
       </RowWrapper>
     );
-    if (inMonthError) {
-      noResult = (
-        <RowWrapper className={styles.center}>
-          <h4> خطا در دریافت اطلاعات</h4>
-          <Button
-            className={styles.button}
-            onClick={() => window.location.reload()}>
-            دریافت مجدد اطلاعات
-          </Button>
-        </RowWrapper>
-      );
-    }
-    if (inMonthLoading) {
-      noResult = (
-        <RowWrapper className={styles.center}>
-          <h4> در حال دریافت اطلاعات</h4>
-        </RowWrapper>
-      );
-    }
   }
+  if (inMonthError) {
+    noResult = (
+      <RowWrapper className={styles.center}>
+        <h4> خطا در دریافت اطلاعات</h4>
+        <Button
+          className={styles.button}
+          onClick={() => window.location.reload()}
+        >
+          دریافت مجدد اطلاعات
+        </Button>
+      </RowWrapper>
+    );
+  }
+  if (inMonthLoading) {
+    noResult = (
+      <RowWrapper className={styles.center}>
+        <h4> در حال دریافت اطلاعات ...</h4>
+      </RowWrapper>
+    );
+  }
+
   return (
     <ContentWrapper>
       {noResult || (
@@ -109,8 +125,9 @@ export default function MonthlyTab() {
       <Total className={styles.title}>
         <SelectInput
           disabled={inMonthError}
-          onChange={(e) => handleMonthTab(e.target.value, "month")}
-          value={inMonthObject.month}>
+          onChange={(e) => handleChange(e.target.value, "month")}
+          value={inMonthLoading ? month : inMonthObject.month}
+        >
           {monthes.map((month, index) => (
             <option value={index + 1} key={index}>
               {month}
@@ -119,8 +136,9 @@ export default function MonthlyTab() {
         </SelectInput>
         <SelectInput
           disabled={inMonthError}
-          onChange={(e) => handleMonthTab(e.target.value, "year")}
-          value={inMonthObject.year}>
+          onChange={(e) => handleChange(e.target.value, "year")}
+          value={inMonthLoading ? year : inMonthObject.year}
+        >
           {years.map((year, index) => (
             <option value={year} key={index}>
               {year}
@@ -130,4 +148,6 @@ export default function MonthlyTab() {
       </Total>
     </ContentWrapper>
   );
-}
+};
+
+export default MonthlyTab;

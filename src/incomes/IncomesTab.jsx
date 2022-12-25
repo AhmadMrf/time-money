@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "../context/record-context";
+
 import RowWrapper from "../templates/RowWrapper";
 import ContentWrapper from "../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
-import styles from "./IncomesTab.module.css";
 import TotalIncomes from "./TotalIncomes";
 import Button from "../templates/Button";
+import styles from "./IncomesTab.module.css";
 
-export default function IncomesTab() {
+const IncomesTab = () => {
   const {
     incomes,
     workPlaces,
     loading: { incomeLoading, workPlaceLoading },
     error: { incomeError },
   } = useGlobalContext();
-
   const [selectedId, setSelectedId] = useState(undefined);
   useEffect(() => {
     if (!workPlaceLoading) {
@@ -38,25 +38,28 @@ export default function IncomesTab() {
         <h4>خطا در دریافت اطلاعات</h4>
         <Button
           className={styles.button}
-          onClick={() => window.location.reload()}>
+          onClick={() => window.location.reload()}
+        >
           دریافت مجدد اطلاعات
         </Button>
       </RowWrapper>
     );
   }
-  if (incomeLoading) {
+  if (incomeLoading || workPlaceLoading) {
     noResult = (
       <RowWrapper className={styles.center}>
         <h4> درحال دریافت اطلاعات</h4>
       </RowWrapper>
     );
   }
+
   return (
     <ContentWrapper>
       {noResult || (
         <RowWrapper>
           <IncomeRow
             id={"شماره"}
+            workPlace={"شغل"}
             description={"توضیحات"}
             incomeDate={"تاریخ"}
             price={"مبلغ"}
@@ -65,6 +68,11 @@ export default function IncomesTab() {
             <IncomeRow
               key={income.id}
               id={++index}
+              workPlace={
+                workPlaces.find(
+                  (workPlace) => workPlace.id === income.w_p_id.id
+                ).name
+              }
               description={income.description}
               incomeDate={income.income_date}
               price={income.price}
@@ -83,4 +91,6 @@ export default function IncomesTab() {
       </div>
     </ContentWrapper>
   );
-}
+};
+
+export default IncomesTab;

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import jalaali from "jalaali-js";
 
 import useGetInMonthRecords from "../hooks/useGetInMonthRecords";
 import useGetData from "../hooks/useGetData";
@@ -11,10 +12,14 @@ const defaultData = {
   handleMonthTab: (value, date) => {},
 };
 
+const now = new Date(Date.now());
+const { jy: year } = jalaali.toJalaali(now);
+const { jm: month } = jalaali.toJalaali(now);
+
 const recordsData = createContext(defaultData);
 
 const RecordProvider = ({ children }) => {
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState({ year, month });
 
   function handleMonthTab(value, dateInfo) {
     if (dateInfo === "month") {
@@ -27,7 +32,7 @@ const RecordProvider = ({ children }) => {
     inMonthObject,
     loading: inMonthLoading,
     error: inMonthError,
-  } = useGetInMonthRecords();
+  } = useGetInMonthRecords(date.year, date.month);
   const {
     data: workPlaces,
     loading: workPlaceLoading,
