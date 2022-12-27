@@ -9,17 +9,21 @@ const now = new Date(Date.now());
 const { jy: year } = jalaali.toJalaali(now);
 const { jm: month } = jalaali.toJalaali(now);
 
-const defaultRecords = {
-  inMonthObject: {
-    records: [],
-    beginDate: null,
-    endDate: null,
-    month,
-    year,
-  },
-};
-
 const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
+  const { beginMonthDate, endMonthDate, beginDate, endDate } = getTimesForMonth(
+    jalaaliYear,
+    jalaaliMonth
+  );
+
+  const defaultRecords = {
+    inMonthObject: {
+      records: [],
+      beginDate,
+      endDate,
+      month,
+      year,
+    },
+  };
   const RECORD_TABLE = "records";
   const DATE_COLUMN = "start_time";
   const [records, setRecords] = useState(defaultRecords);
@@ -28,8 +32,6 @@ const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
   useEffect(() => {
     setLoading(true);
     async function getData() {
-      const { beginMonthDate, endMonthDate, beginDate, endDate } =
-        getTimesForMonth(jalaaliYear, jalaaliMonth);
       const beginMonthTime = beginMonthDate.getTime();
       const endMonthTime = endMonthDate.getTime();
       const query = new Parse.Query(RECORD_TABLE);
