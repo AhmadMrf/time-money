@@ -50,7 +50,6 @@ const MonthlyTab = () => {
     return totalRecords?.reduce((total, record) => total + record[field], 0);
   };
   const handleChange = (value, date) => {
-    console.log(value);
     if (date === "month") {
       setMonth(+value);
     } else {
@@ -76,8 +75,7 @@ const MonthlyTab = () => {
         <h4> خطا در دریافت اطلاعات</h4>
         <Button
           className={styles.button}
-          onClick={() => window.location.reload()}
-        >
+          onClick={() => window.location.reload()}>
           دریافت مجدد اطلاعات
         </Button>
       </RowWrapper>
@@ -124,10 +122,9 @@ const MonthlyTab = () => {
 
       <Total className={styles.title}>
         <SelectInput
-          disabled={inMonthError}
+          disabled={inMonthError || inMonthLoading}
           onChange={(e) => handleChange(e.target.value, "month")}
-          value={inMonthLoading ? month : inMonthObject.month}
-        >
+          value={inMonthLoading ? month : inMonthObject.month}>
           {monthes.map((month, index) => (
             <option value={index + 1} key={index}>
               {month}
@@ -135,10 +132,9 @@ const MonthlyTab = () => {
           ))}
         </SelectInput>
         <SelectInput
-          disabled={inMonthError}
+          disabled={inMonthError || inMonthLoading}
           onChange={(e) => handleChange(e.target.value, "year")}
-          value={inMonthLoading ? year : inMonthObject.year}
-        >
+          value={inMonthLoading ? year : inMonthObject.year}>
           {years.map((year, index) => (
             <option value={year} key={index}>
               {year}
