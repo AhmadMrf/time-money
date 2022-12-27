@@ -33,7 +33,7 @@ const getTimesForweek = (inMonthObject) => {
     let weekObj = {
       id: week.id,
       startDate: new Date(week.startDate),
-      endDate: new Date(endDate),
+      endDate: new Date(week.endDate),
       recordes: sepratedRecords,
     };
     seprated.push(weekObj);
