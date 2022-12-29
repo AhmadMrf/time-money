@@ -17,8 +17,9 @@ const mergeWeekRecords = (sepratedWeekObject) => {
     }
   }, []);
   const SECONDS_OF_DAY = 86400000;
+  const EXTRA_6_HOURS = 21600000;
   const mergedRecords = Array.from({ length: 7 }, (_, i) => {
-    const date = startDate.getTime() + SECONDS_OF_DAY * i;
+    const date = startDate.getTime() + EXTRA_6_HOURS + SECONDS_OF_DAY * i;
     const record = totalRecords.find(
       (item) =>
         item.start_time.toLocaleDateString("fa-ir", { weekday: "long" }) ===
