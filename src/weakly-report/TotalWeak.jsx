@@ -32,8 +32,7 @@ const TotalWeak = ({
         key={item.id}
         disabled={empty}
         title={empty ? "اطلااتی ثبت نشده" : ""}
-        value={item.id}
-      >
+        value={item.id}>
         {value}
       </option>
     );
@@ -41,13 +40,12 @@ const TotalWeak = ({
   return (
     <Total>
       <SelectInput
-        defaultValue={defaultSeleced}
+        defaultValue={defaultSeleced || 1}
         disabled={
           inMonthError || inMonthLoading || !inMonthObject?.records?.length
         }
         onChange={(e) => handleChangeWeek(e.target.value)}
-        className={styles.select}
-      >
+        className={styles.select}>
         {selectOptions}
       </SelectInput>
       <span className={styles.price}>مبلغ کل : {weekIncome}</span>
