@@ -12,20 +12,24 @@ import styles from "./WeaklyTab.module.css";
 
 const WeaklyTab = () => {
   const [sepratedWeekIndex, setSepratedWeekIndex] = useState(0);
-  const { inMonthObject } = useGlobalContext();
+  const {
+    inMonthObject,
+    loading: { inMonthLoading },
+    error: { inMonthError },
+  } = useGlobalContext();
   const dateSepratedWithWeek = getTimesForweek(inMonthObject);
   const dateSepratedWithWeekWithRecords = dateSepratedWithWeek.filter(
     (weekObject) => weekObject.recordes.length > 0
   );
-  console.log(dateSepratedWithWeekWithRecords);
   const weekObject = dateSepratedWithWeekWithRecords[sepratedWeekIndex];
+  const defaultSeleced = weekObject?.id;
+  console.log(defaultSeleced);
   const mergedRecords = mergeWeekRecords(weekObject);
 
   const handleChangeWeek = (id) => {
     const index = dateSepratedWithWeekWithRecords.findIndex(
-      (item) => item.id === id
+      (item) => item.id === +id
     );
-
     setSepratedWeekIndex(index);
   };
   const weekTotals = (key) => {
@@ -54,17 +58,43 @@ const WeaklyTab = () => {
       />
     );
   });
+  let noResult = null;
+  if (!inMonthObject.records.length) {
+    noResult = (
+      <RowWrapper className={styles.center}>
+        <h4> اطلاعاتی ثبت نشده</h4>
+      </RowWrapper>
+    );
+  }
+  if (inMonthError) {
+    noResult = (
+      <RowWrapper className={styles.center}>
+        <h4> خطا در دریافت اطلاعات</h4>
+      </RowWrapper>
+    );
+  }
+  if (inMonthLoading) {
+    noResult = (
+      <RowWrapper className={styles.center}>
+        <h4> در حال دریافت اطلاعات ...</h4>
+      </RowWrapper>
+    );
+  }
+
   return (
     <ContentWrapper>
-      <RowWrapper>
-        <WeaklyRow weekDay='روز هفته' date='تاریخ' price='مبلغ' time='زمان' />
-        {weekRows}
-      </RowWrapper>
+      {noResult || (
+        <RowWrapper>
+          <WeaklyRow weekDay="روز هفته" date="تاریخ" price="مبلغ" time="زمان" />
+          {weekRows}
+        </RowWrapper>
+      )}
       <TotalWeak
         handleChangeWeek={handleChangeWeek}
         dateSepratedWithWeek={dateSepratedWithWeek}
         weekIncome={weekTotals("price")}
         weekTime={weekTotals("time")}
+        defaultSeleced={defaultSeleced}
       />
     </ContentWrapper>
   );

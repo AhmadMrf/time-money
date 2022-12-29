@@ -1,3 +1,4 @@
+import { useGlobalContext } from "../context/record-context";
 import SelectInput from "../templates/SelectInput";
 import Total from "../templates/Total";
 import styles from "./TotalWeak.module.css";
@@ -7,7 +8,13 @@ const TotalWeak = ({
   weekTime,
   dateSepratedWithWeek,
   handleChangeWeek,
+  defaultSeleced,
 }) => {
+  const {
+    inMonthObject,
+    loading: { inMonthLoading },
+    error: { inMonthError },
+  } = useGlobalContext();
   const selectOptions = dateSepratedWithWeek.map((item) => {
     const startTime = item.startDate.toLocaleDateString("fa-ir", {
       day: "numeric",
@@ -25,7 +32,8 @@ const TotalWeak = ({
         key={item.id}
         disabled={empty}
         title={empty ? "اطلااتی ثبت نشده" : ""}
-        value={item.id}>
+        value={item.id}
+      >
         {value}
       </option>
     );
@@ -33,8 +41,13 @@ const TotalWeak = ({
   return (
     <Total>
       <SelectInput
+        defaultValue={defaultSeleced}
+        disabled={
+          inMonthError || inMonthLoading || !inMonthObject?.records?.length
+        }
         onChange={(e) => handleChangeWeek(e.target.value)}
-        className={styles.select}>
+        className={styles.select}
+      >
         {selectOptions}
       </SelectInput>
       <span className={styles.price}>مبلغ کل : {weekIncome}</span>
