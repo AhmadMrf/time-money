@@ -18,6 +18,8 @@ body {
   --bg-row-hover: hsl(198.46, 15.66%, 83.73%);
 
   --black-color: hsl(200, 15%, 15.43%);
+  --gray-color: hsl(200, 15.33%, 73.14%);
+  --light-red-color: hsl(354, 100%, 90.2%);
   --white-color: hsl(0, 0%, 98%);
 }
 /* https://materialui.co/colors */
