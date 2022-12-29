@@ -5,6 +5,13 @@
   justify-content: space-evenly;
   padding: 0.5rem 1rem;
 }
+.row.empty {
+  color: var(--gray-color);
+  padding: 0.2rem 1rem;
+}
+.row.out_of_month {
+  color: var(--light-red-color);
+}
 .row:first-child {
   background-color: var(--box-shadows);
 }

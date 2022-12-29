@@ -10,23 +10,33 @@ const TotalWeak = ({
 }) => {
   const selectOptions = dateSepratedWithWeek.map((item) => {
     const startTime = item.startDate.toLocaleDateString("fa-ir", {
-      month: "short",
       day: "numeric",
+      month: "short",
     });
     const endTime = item.endDate.toLocaleDateString("fa-ir", {
-      month: "short",
       day: "numeric",
+      month: "short",
     });
-    const value = `${startTime} تا ${endTime}`;
+    const value = `${endTime}${startTime} `;
+    const empty = item.recordes.length ? false : true;
     return (
-      <option key={item.id} value={item.id}>
+      <option
+        className={`${empty ? styles.empty : ""}`}
+        key={item.id}
+        disabled={empty}
+        title={empty ? "اطلااتی ثبت نشده" : ""}
+        value={item.id}>
         {value}
       </option>
     );
   });
   return (
     <Total>
-      <SelectInput className={styles.select}>{selectOptions}</SelectInput>
+      <SelectInput
+        onChange={(e) => handleChangeWeek(e.target.value)}
+        className={styles.select}>
+        {selectOptions}
+      </SelectInput>
       <span className={styles.price}>مبلغ کل : {weekIncome}</span>
       <span className={styles.time}>زمان کل : {weekTime}</span>
     </Total>

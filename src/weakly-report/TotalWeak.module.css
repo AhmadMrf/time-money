@@ -13,3 +13,6 @@
 span {
   padding: 0.5rem;
 }
+.empty {
+  color: var(--light-red-color);
+}
