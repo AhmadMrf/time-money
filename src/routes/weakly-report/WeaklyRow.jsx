@@ -1,4 +1,4 @@
-import Row from "../templates/Row";
+import Row from "../../templates/Row";
 import styles from "./WeaklyRow.module.css";
 
 const WeaklyRow = ({ weekDay, date, price, time, outOfMonth, empty }) => {

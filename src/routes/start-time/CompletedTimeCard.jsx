@@ -1,16 +1,16 @@
-import Button from "../templates/Button";
-import Card from "../templates/Card";
-import Input from "../templates/Input";
+import Button from "../../templates/Button";
+import Card from "../../templates/Card";
+import Input from "../../templates/Input";
 import styles from "./CompletedTimeCard.module.css";
 import { useRef } from "react";
-export default function CompletedTimeCard({
+const CompletedTimeCard = ({
   id,
   place,
   startTime,
   endTime,
   description,
   price,
-}) {
+}) => {
   let formattedStartTime = new Intl.DateTimeFormat("fa-ir", {
     timeStyle: "short",
   }).format(startTime);
@@ -56,4 +56,5 @@ export default function CompletedTimeCard({
       </div>
     </Card>
   );
-}
+};
+export default CompletedTimeCard;

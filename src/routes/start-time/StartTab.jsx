@@ -1,10 +1,10 @@
 import styles from "./StartTab.module.css";
 
-import Button from "../templates/Button";
-import ContentWrapper from "../templates/ContentWrapper";
-import RowWrapper from "../templates/RowWrapper";
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
+import Button from "../../templates/Button";
+import ContentWrapper from "../../templates/ContentWrapper";
+import RowWrapper from "../../templates/RowWrapper";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
 import TimeCard from "./TimeCard";
 import CompletedTimeCard from "./CompletedTimeCard";
 
@@ -37,7 +37,7 @@ const RECORDES = [
     description: "د . ملکی",
   },
 ];
-export default function StartTab() {
+const StartTab = () => {
   let timeCards = RECORDES.map((record) => {
     if (record.completed)
       return <CompletedTimeCard key={record.id} {...record} />;
@@ -45,9 +45,7 @@ export default function StartTab() {
   });
   return (
     <ContentWrapper>
-      <RowWrapper>
-        {timeCards}
-      </RowWrapper>
+      <RowWrapper>{timeCards}</RowWrapper>
       <Total>
         <SelectInput>
           <option value='0'>مطب</option>
@@ -57,4 +55,5 @@ export default function StartTab() {
       </Total>
     </ContentWrapper>
   );
-}
+};
+export default StartTab;

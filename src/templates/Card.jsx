@@ -1,5 +1,5 @@
 import styles from "./Card.module.css";
-export default function Card({ className, children, title }) {
+const Card = ({ className, children, title }) => {
   if (title) {
     return (
       <div className={`${styles.card_wrapper} ${className || ""}`}>
@@ -9,4 +9,5 @@ export default function Card({ className, children, title }) {
     );
   }
   return <div className={`${styles.card} ${className || ""}`}>{children}</div>;
-}
+};
+export default Card;

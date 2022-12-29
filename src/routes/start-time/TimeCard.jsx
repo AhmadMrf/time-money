@@ -1,8 +1,8 @@
-import Button from "../templates/Button";
-import Card from "../templates/Card";
+import Button from "../../templates/Button";
+import Card from "../../templates/Card";
 import styles from "./TimeCard.module.css";
 
-export default function TimeCard({ id, place, startTime }) {
+const TimeCard = ({ id, place, startTime }) => {
   let formattedStartTime = new Intl.DateTimeFormat("fa-ir", {
     timeStyle: "short",
   }).format(startTime);
@@ -19,4 +19,5 @@ export default function TimeCard({ id, place, startTime }) {
       </div>
     </Card>
   );
-}
+};
+export default TimeCard;

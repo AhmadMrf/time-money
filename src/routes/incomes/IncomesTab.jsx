@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "../context/record-context";
+import { useGlobalContext } from "../../context/record-context";
 
-import RowWrapper from "../templates/RowWrapper";
-import ContentWrapper from "../templates/ContentWrapper";
+import RowWrapper from "../../templates/RowWrapper";
+import ContentWrapper from "../../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
 import TotalIncomes from "./TotalIncomes";
-import Button from "../templates/Button";
+import Button from "../../templates/Button";
 import styles from "./IncomesTab.module.css";
 
 const IncomesTab = () => {

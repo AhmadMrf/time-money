@@ -1,6 +1,6 @@
-import { useGlobalContext } from "../context/record-context";
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
+import { useGlobalContext } from "../../context/record-context";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
 import styles from "./TotalWeak.module.css";
 
 const TotalWeak = ({

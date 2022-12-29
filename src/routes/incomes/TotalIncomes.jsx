@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import useSendData from "../hooks/useSendData";
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
-import Button from "../templates/Button";
+import useSendData from "../../hooks/useSendData";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
+import Button from "../../templates/Button";
 import styles from "./TotalIncomes.module.css";
 
 const TotalIncomes = ({

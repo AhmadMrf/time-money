@@ -1,7 +1,8 @@
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
 import styles from "./TotalDaily.module.css";
-export default function TotalDaily({ children, className, ...rest }) {
+
+const TotalDaily = ({ children, className, ...rest }) => {
   const dayOption = 30;
   const monthOption = [
     "فروردین",
@@ -10,7 +11,7 @@ export default function TotalDaily({ children, className, ...rest }) {
     "تیر",
     "مرداد",
     "شهریور",
-    "مهر"
+    "مهر",
   ];
   const yearOption = ["1400", "1401"];
   return (
@@ -26,4 +27,5 @@ export default function TotalDaily({ children, className, ...rest }) {
       <span>مبلغ کل : 500</span> <span>زمان کل : 5</span>{" "}
     </Total>
   );
-}
+};
+export default TotalDaily;

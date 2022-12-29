@@ -1,11 +1,10 @@
 // import "./styles.css";
 import RecordProvider from "./context/record-context";
-import Navbar from "./navbar/Navbar";
-import MyRoutes from "./MyRoutes";
-import MainLayout from "./MainLayout";
-// import Parse from "parse/dist/parse.min.js";
+import Navbar from "./components/navbar/Navbar";
+import MyRoutes from "./components/MyRoutes";
+import MainLayout from "./components/main/MainLayout";
 import "./config/parse-config";
-export default function App() {
+const App = () => {
   return (
     <RecordProvider>
       <MainLayout>
@@ -14,4 +13,5 @@ export default function App() {
       <Navbar />
     </RecordProvider>
   );
-}
+};
+export default App;

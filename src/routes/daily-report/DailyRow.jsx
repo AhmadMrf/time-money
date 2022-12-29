@@ -1,6 +1,6 @@
-import Card from "../templates/Card";
+import Card from "../../templates/Card";
 import styles from "./DailyRow.module.css";
-export default function DailyRow({ title, className, dailyRecords }) {
+const DailyRow = ({ title, className, dailyRecords }) => {
   return (
     <div className={`${styles.total} ${className || ""}`}>
       <Card title={title}>
@@ -24,4 +24,5 @@ export default function DailyRow({ title, className, dailyRecords }) {
       </Card>
     </div>
   );
-}
+};
+export default DailyRow;

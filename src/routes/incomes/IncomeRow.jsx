@@ -1,4 +1,4 @@
-import Row from "../templates/Row";
+import Row from "../../templates/Row";
 import styles from "./IncomeRow.module.css";
 const IncomeRow = ({ id, workPlace, description, incomeDate, price }) => {
   return (

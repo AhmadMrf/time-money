@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./RowWrapper.module.css";
 
-export default function RowWrapper({ children, className, ...rest }) {
+const RowWrapper = ({ children, className, ...rest }) => {
   const [scrolledTop, setScrolledTop] = useState(false);
   const [scrolledBottom, setScrolledBottom] = useState(false);
   const rowWrapperRef = useRef(null);
@@ -29,9 +29,9 @@ export default function RowWrapper({ children, className, ...rest }) {
       className={`${styles.row_wrapper} ${
         scrolledBottom ? styles.scrolled_bottom : ""
       } ${scrolledTop ? styles.scrolled_top : ""} ${className ?? ""}`}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </div>
   );
-}
+};
+export default RowWrapper;

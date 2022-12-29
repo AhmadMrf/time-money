@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { toJalaali } from "jalaali-js";
 
-import { useGlobalContext } from "../context/record-context";
-import { getTimesForweek } from "../utils/getTimesForweek";
-import mergeWeekRecords from "../utils/mergeWeekRecords";
-import ContentWrapper from "../templates/ContentWrapper";
-import RowWrapper from "../templates/RowWrapper";
+import { useGlobalContext } from "../../context/record-context";
+import { getTimesForweek } from "../../utils/getTimesForweek";
+import mergeWeekRecords from "../../utils/mergeWeekRecords";
+import ContentWrapper from "../../templates/ContentWrapper";
+import RowWrapper from "../../templates/RowWrapper";
 import WeaklyRow from "./WeaklyRow";
 import TotalWeak from "./TotalWeak";
 import styles from "./WeaklyTab.module.css";
@@ -23,7 +23,6 @@ const WeaklyTab = () => {
   );
   const weekObject = dateSepratedWithWeekWithRecords[sepratedWeekIndex];
   const defaultSeleced = weekObject?.id;
-  console.log(defaultSeleced);
   const mergedRecords = mergeWeekRecords(weekObject);
 
   const handleChangeWeek = (id) => {
@@ -85,7 +84,7 @@ const WeaklyTab = () => {
     <ContentWrapper>
       {noResult || (
         <RowWrapper>
-          <WeaklyRow weekDay="روز هفته" date="تاریخ" price="مبلغ" time="زمان" />
+          <WeaklyRow weekDay='روز هفته' date='تاریخ' price='مبلغ' time='زمان' />
           {weekRows}
         </RowWrapper>
       )}

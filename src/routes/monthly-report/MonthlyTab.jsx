@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { useGlobalContext } from "../context/record-context";
-import { monthes, years } from "../data/dates";
+import { useGlobalContext } from "../../context/record-context";
+import { monthes, years } from "../../data/dates";
 
-import ContentWrapper from "../templates/ContentWrapper";
-import RowWrapper from "../templates/RowWrapper";
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
-import Button from "../templates/Button";
+import ContentWrapper from "../../templates/ContentWrapper";
+import RowWrapper from "../../templates/RowWrapper";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
+import Button from "../../templates/Button";
 
 import styles from "./MonthlyTab.module.css";
 
