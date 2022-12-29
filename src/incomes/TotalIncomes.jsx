@@ -1,11 +1,18 @@
 import { useState } from "react";
+
 import useSendData from "../hooks/useSendData";
 import SelectInput from "../templates/SelectInput";
 import Total from "../templates/Total";
 import Button from "../templates/Button";
 import styles from "./TotalIncomes.module.css";
 
-export default function TotalIncomes({ selected, selectedId, total, onSelect, workPlaces }) {
+const TotalIncomes = ({
+  selected,
+  selectedId,
+  total,
+  onSelect,
+  workPlaces,
+}) => {
   const [selectedItem, setSelectedItem] = useState(selectedId);
   const { sendData, loading, error, result } = useSendData();
   const noId = selectedId === "noId";
@@ -22,7 +29,12 @@ export default function TotalIncomes({ selected, selectedId, total, onSelect, wo
     <Total>
       <div className={styles.total_incomes}> کل دریافتی : {total}</div>
       <div className={styles.selected_income}>
-        <SelectInput disabled={noId} className={styles.select} onChange={selectHandler} value={selectedItem}>
+        <SelectInput
+          disabled={noId}
+          className={styles.select}
+          onChange={selectHandler}
+          value={selectedItem}>
+          {<option value={"all"}>همه </option>}
           {options}
           {noId && <option value={"noId"}>بدون اطلاعات</option>}
         </SelectInput>
@@ -33,4 +45,5 @@ export default function TotalIncomes({ selected, selectedId, total, onSelect, wo
       </Button>
     </Total>
   );
-}
+};
+export default TotalIncomes;

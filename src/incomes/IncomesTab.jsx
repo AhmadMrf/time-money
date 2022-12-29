@@ -18,11 +18,14 @@ const IncomesTab = () => {
   const [selectedId, setSelectedId] = useState(undefined);
   useEffect(() => {
     if (!workPlaceLoading) {
-      const firstId = workPlaces.length ? workPlaces[0].id : "noId";
+      const firstId = workPlaces.length ? "all" : "noId";
       setSelectedId(firstId);
     }
   }, [workPlaceLoading]);
   const selectedPrice = (selectedWorkPlaceId) => {
+    if (selectedWorkPlaceId === "all") {
+      return incomes.reduce((total, { price }) => total + price, 0);
+    }
     return incomes
       .filter((income) => income.w_p_id.id === selectedWorkPlaceId)
       .reduce((total, { price }) => total + price, 0);
@@ -31,6 +34,24 @@ const IncomesTab = () => {
   const onSelectedPrice = (id) => {
     setSelectedId(id);
   };
+  const incomeRows = () => {
+    let newIncomes = incomes;
+    if (selectedId !== "all") {
+      newIncomes = incomes.filter((income) => income.w_p_id.id === selectedId);
+    }
+    return newIncomes.map((income, index) => (
+      <IncomeRow
+        key={income.id}
+        id={++index}
+        workPlace={
+          workPlaces.find((workPlace) => workPlace.id === income.w_p_id.id).name
+        }
+        description={income.description}
+        incomeDate={income.income_date}
+        price={income.price}
+      />
+    ));
+  };
   let noResult = null;
   if (incomeError) {
     noResult = (
@@ -38,8 +59,7 @@ const IncomesTab = () => {
         <h4>خطا در دریافت اطلاعات</h4>
         <Button
           className={styles.button}
-          onClick={() => window.location.reload()}
-        >
+          onClick={() => window.location.reload()}>
           دریافت مجدد اطلاعات
         </Button>
       </RowWrapper>
@@ -64,20 +84,7 @@ const IncomesTab = () => {
             incomeDate={"تاریخ"}
             price={"مبلغ"}
           />
-          {incomes.map((income, index) => (
-            <IncomeRow
-              key={income.id}
-              id={++index}
-              workPlace={
-                workPlaces.find(
-                  (workPlace) => workPlace.id === income.w_p_id.id
-                ).name
-              }
-              description={income.description}
-              incomeDate={income.income_date}
-              price={income.price}
-            />
-          ))}
+          {incomeRows()}
         </RowWrapper>
       )}
       <div className={styles.bottom_section}>
