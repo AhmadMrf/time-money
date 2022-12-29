@@ -13,4 +13,13 @@ const monthes = [
   "بهمن",
   "اسفند",
 ];
-export { years, monthes };
+const weekDays = [
+  "شنبه",
+  "یکشنبه",
+  "دوشنبه",
+  "سه‌شنبه",
+  "چهارشنبه",
+  "پنجشنبه",
+  "جمعه",
+];
+export { years, monthes, weekDays };
