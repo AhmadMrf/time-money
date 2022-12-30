@@ -1,8 +1,8 @@
-import { useGlobalContext } from "../context/record-context";
+import { useGlobalContext } from "../../context/record-context";
 import { jalaaliMonthLength } from "jalaali-js";
-import { monthes } from "../data/dates";
-import SelectInput from "../templates/SelectInput";
-import Total from "../templates/Total";
+import { monthes } from "../../data/dates";
+import SelectInput from "../../templates/SelectInput";
+import Total from "../../templates/Total";
 import styles from "./TotalDaily.module.css";
 const TotalDaily = ({
   totalTime,

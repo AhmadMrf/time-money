@@ -1,7 +1,7 @@
-import { useGlobalContext } from "../context/record-context";
-import { mergeDayRecords } from "../utils/mergeDayRecords";
-import ContentWrapper from "../templates/ContentWrapper";
-import RowWrapper from "../templates/RowWrapper";
+import { useGlobalContext } from "../../context/record-context";
+import { mergeDayRecords } from "../../utils/mergeDayRecords";
+import ContentWrapper from "../../templates/ContentWrapper";
+import RowWrapper from "../../templates/RowWrapper";
 import TotalDaily from "./TotalDaily";
 import DailyRow from "./DailyRow";
 import styles from "./DailyTab.module.css";
