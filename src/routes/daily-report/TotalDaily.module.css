@@ -5,3 +5,6 @@
 .select {
   flex: 1 1;
 }
+option:disabled {
+  color: var(--light-red-color);
+}

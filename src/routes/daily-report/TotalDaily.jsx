@@ -8,16 +8,17 @@ const TotalDaily = ({
   totalTime,
   totalPrice,
   activeDays,
-  children,
-  className,
-  ...rest
+  changeSelect,
+  // defaultSelected,
 }) => {
   const {
     inMonthObject,
     loading: { inMonthLoading },
     error: { inMonthError },
   } = useGlobalContext();
-
+  const handleSelect = (e) => {
+    changeSelect(+e.target.value + 1);
+  };
   const monthLength = jalaaliMonthLength(
     inMonthObject.year,
     inMonthObject.month
@@ -26,12 +27,18 @@ const TotalDaily = ({
     <Total>
       <div className={styles.select_wrapper}>
         <SelectInput
+          // defaultValue={defaultSelected || 1}
+          onChange={handleSelect}
           disabled={inMonthLoading || inMonthError}
           className={styles.select}>
           {Array.from({ length: monthLength }).map((_, i) => {
             const enable = activeDays.find((day) => day - 1 === i);
             return (
-              <option value={i} disabled={!enable} key={i}>
+              <option
+                title={!enable ? "اطلاعاتی ثبت نشده است" : ""}
+                value={i}
+                disabled={!enable}
+                key={i}>
                 {i + 1}
               </option>
             );
