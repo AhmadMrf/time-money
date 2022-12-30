@@ -1,30 +1,47 @@
-import SelectInput from "../../templates/SelectInput";
-import Total from "../../templates/Total";
+import { useGlobalContext } from "../context/record-context";
+import { jalaaliMonthLength } from "jalaali-js";
+import { monthes } from "../data/dates";
+import SelectInput from "../templates/SelectInput";
+import Total from "../templates/Total";
 import styles from "./TotalDaily.module.css";
+const TotalDaily = ({
+  totalTime,
+  totalPrice,
+  activeDays,
+  children,
+  className,
+  ...rest
+}) => {
+  const {
+    inMonthObject,
+    loading: { inMonthLoading },
+    error: { inMonthError },
+  } = useGlobalContext();
 
-const TotalDaily = ({ children, className, ...rest }) => {
-  const dayOption = 30;
-  const monthOption = [
-    "فروردین",
-    "اردیبهشت",
-    "خرداد",
-    "تیر",
-    "مرداد",
-    "شهریور",
-    "مهر",
-  ];
-  const yearOption = ["1400", "1401"];
+  const monthLength = jalaaliMonthLength(
+    inMonthObject.year,
+    inMonthObject.month
+  );
   return (
     <Total>
       <div className={styles.select_wrapper}>
-        <SelectInput className={styles.select}>
-          {Array.from({ length: dayOption }).map((_, i) => (
-            <option key={i}>{i + 1}</option>
-          ))}
+        <SelectInput
+          disabled={inMonthLoading || inMonthError}
+          className={styles.select}>
+          {Array.from({ length: monthLength }).map((_, i) => {
+            const enable = activeDays.find((day) => day - 1 === i);
+            return (
+              <option value={i} disabled={!enable} key={i}>
+                {i + 1}
+              </option>
+            );
+          })}
         </SelectInput>
-        <span> فروردین 1400 (شنبه)</span>
+        <span>
+          {monthes[inMonthObject.month - 1]} {inMonthObject.year}
+        </span>
       </div>
-      <span>مبلغ کل : 500</span> <span>زمان کل : 5</span>{" "}
+      <span>مبلغ کل : {totalPrice}</span> <span>زمان کل : {totalTime}</span>
     </Total>
   );
 };
