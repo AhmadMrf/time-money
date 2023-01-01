@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useGlobalContext } from "../../context/record-context";
 
+import { useGlobalContext } from "../../context/record-context";
 import RowWrapper from "../../templates/RowWrapper";
 import ContentWrapper from "../../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
@@ -93,7 +93,6 @@ const IncomesTab = () => {
           selected={selectedPrice(selectedId)}
           selectedId={selectedId}
           total={totalPrice}
-          workPlaces={workPlaces}
         />
       </div>
     </ContentWrapper>

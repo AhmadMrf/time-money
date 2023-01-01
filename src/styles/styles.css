@@ -32,8 +32,12 @@ main {
   direction: rtl;
   background-color: var(--bg-app-color);
 }
+button:disabled,
 select:disabled {
   cursor: not-allowed;
+}
+button:disabled {
+  background-color: var(--gray-color) !important;
 }
 @media screen and (max-height: 400px) {
   main {

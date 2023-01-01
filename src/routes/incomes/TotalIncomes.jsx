@@ -1,22 +1,21 @@
 import { useState } from "react";
 
+import { useGlobalContext } from "../../context/record-context";
 import useSendData from "../../hooks/useSendData";
 import SelectInput from "../../templates/SelectInput";
 import Total from "../../templates/Total";
 import Button from "../../templates/Button";
 import styles from "./TotalIncomes.module.css";
 
-const TotalIncomes = ({
-  selected,
-  selectedId,
-  total,
-  onSelect,
-  workPlaces,
-}) => {
+const TotalIncomes = ({ selected, selectedId, total, onSelect }) => {
+  const {
+    workPlaces,
+    loading: { incomeLoading, workPlaceLoading },
+    error: { incomeError },
+  } = useGlobalContext();
   const [selectedItem, setSelectedItem] = useState(selectedId);
   const { sendData, loading, error, result } = useSendData();
-  const noId = selectedId === "noId";
-  const options = workPlaces.map((item) => (
+  const options = workPlaces?.map((item) => (
     <option key={item.id} value={item.id}>
       {item.name}
     </option>
@@ -25,12 +24,14 @@ const TotalIncomes = ({
     onSelect(e.target.value);
     setSelectedItem(e.target.value);
   };
+  const noId = selectedId === "noId";
+  const disabled = noId || incomeLoading || workPlaceLoading;
   return (
     <Total>
       <div className={styles.total_incomes}> کل دریافتی : {total}</div>
       <div className={styles.selected_income}>
         <SelectInput
-          disabled={noId}
+          disabled={disabled}
           className={styles.select}
           onChange={selectHandler}
           value={selectedItem}>
@@ -40,7 +41,10 @@ const TotalIncomes = ({
         </SelectInput>
         <span>: {selected}</span>
       </div>
-      <Button onClick={() => sendData("income", {})} className={styles.button}>
+      <Button
+        disabled={disabled}
+        onClick={() => sendData("income", {})}
+        className={styles.button}>
         افزودن دریافتی
       </Button>
     </Total>
