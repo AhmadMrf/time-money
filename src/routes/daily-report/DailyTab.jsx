@@ -9,18 +9,17 @@ import DailyRow from "./DailyRow";
 import styles from "./DailyTab.module.css";
 
 const DailyTab = () => {
-  const [day, setDay] = useState(null);
+  const [day, setDay] = useState(0);
   const {
     inMonthObject,
     workPlaces,
-    loading: { inMonthLoading },
-    error: { inMonthError },
+    loading: { inMonthLoading, workPlaceLoading },
+    error: { inMonthError, workPlaceError },
   } = useGlobalContext();
-  console.log(workPlaces);
   const daysRecords = mergeDayRecords(inMonthObject);
   const dayRecord = daysRecords[day];
+  console.log(dayRecord);
   const activeDays = Object.keys(daysRecords);
-
   const dailyRowsObject = dayRecord?.reduce((total, item) => {
     if (!total[item.work_place.id]) {
       total[item.work_place.id] = [item];
@@ -29,10 +28,25 @@ const DailyTab = () => {
     }
     return total;
   }, {});
-  const dailyRows = Object.entries(dailyRowsObject).map((dailyRow) => {
-    console.log(dailyRow);
-    return <DailyRow title={dailyRow[0]}></DailyRow>;
-  });
+  const dayTotal = (key) => {
+    if (!dayRecord) return "-";
+    return dayRecord.reduce((total, item) => {
+      const option = item[key];
+      return total + option;
+    }, 0);
+  };
+  const dailyRows =
+    dailyRowsObject && !workPlaceLoading
+      ? Object.entries(dailyRowsObject).map((dailyRow) => {
+          const { name } = workPlaces?.find((item) => item.id == dailyRow[0]);
+          return (
+            <DailyRow
+              key={dailyRow[0]}
+              records={dailyRow[1]}
+              title={name}></DailyRow>
+          );
+        })
+      : "";
 
   const changeSelect = (day) => {
     setDay(day);
@@ -70,8 +84,8 @@ const DailyTab = () => {
       {noResult || <RowWrapper>{dailyRows}</RowWrapper>}
       <TotalDaily
         changeSelect={changeSelect}
-        totalTime={4}
-        totalPrice={200}
+        totalTime={dayTotal("time")}
+        totalPrice={dayTotal("price")}
         activeDays={activeDays}
       />
     </ContentWrapper>
