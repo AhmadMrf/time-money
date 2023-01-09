@@ -1,12 +1,11 @@
-import styles from "./StartTab.module.css";
-
 import Button from "../../templates/Button";
 import ContentWrapper from "../../templates/ContentWrapper";
 import RowWrapper from "../../templates/RowWrapper";
-import SelectInput from "../../templates/SelectInput";
-import Total from "../../templates/Total";
 import TimeCard from "./TimeCard";
 import CompletedTimeCard from "./CompletedTimeCard";
+import Modal from "../../components/modal/Modal";
+import styles from "./StartTab.module.css";
+import FooterStartTab from "./FooterStartTab";
 
 const RECORDES = [
   {
@@ -45,14 +44,11 @@ const StartTab = () => {
   });
   return (
     <ContentWrapper>
+      <Modal>
+        <div>start modal</div>
+      </Modal>
       <RowWrapper>{timeCards}</RowWrapper>
-      <Total>
-        <SelectInput>
-          <option value='0'>مطب</option>
-          <option value='1'>منزل</option>
-        </SelectInput>
-        <Button className={styles.button}> افزودن </Button>
-      </Total>
+      <FooterStartTab />
     </ContentWrapper>
   );
 };
