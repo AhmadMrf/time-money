@@ -1,22 +1,17 @@
 import { createContext, useContext, useState } from "react";
 
 const ui_context = createContext();
-const initialValue = {
-  isIncomeModalOpen: false,
-  isAddWorkModalOpen: false,
-};
+
 const UiContextProvider = ({ children }) => {
-  const [isModalsOpen, setIsModalsOpen] = useState(initialValue);
-  const openModals = (modal) => {
-    modal === "income"
-      ? setIsModalsOpen({ ...isModalsOpen, isIncomeModalOpen: true })
-      : setIsModalsOpen({ ...isModalsOpen, isAddWorkModalOpen: true });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
   };
-  const closeModals = () => {
-    setIsModalsOpen(initialValue);
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
   return (
-    <ui_context.Provider value={{ ...isModalsOpen, openModals, closeModals }}>
+    <ui_context.Provider value={{ isModalOpen, openModal, closeModal }}>
       {children}
     </ui_context.Provider>
   );
