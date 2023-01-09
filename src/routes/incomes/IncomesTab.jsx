@@ -6,6 +6,7 @@ import ContentWrapper from "../../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
 import TotalIncomes from "./TotalIncomes";
 import Button from "../../templates/Button";
+import Modal from "../../components/modal/Modal";
 import styles from "./IncomesTab.module.css";
 
 const IncomesTab = () => {
@@ -75,6 +76,9 @@ const IncomesTab = () => {
 
   return (
     <ContentWrapper>
+      <Modal>
+        <div> income modal</div>
+      </Modal>
       {noResult || (
         <RowWrapper>
           <IncomeRow

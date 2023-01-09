@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { useGlobalContext } from "../../context/record-context";
+import { useUiContext } from "../../context/ui-context";
 import useSendData from "../../hooks/useSendData";
 import SelectInput from "../../templates/SelectInput";
 import Total from "../../templates/Total";
@@ -13,6 +14,7 @@ const TotalIncomes = ({ selected, selectedId, total, onSelect }) => {
     loading: { incomeLoading, workPlaceLoading },
     error: { incomeError },
   } = useGlobalContext();
+  const { openModal } = useUiContext();
   const [selectedItem, setSelectedItem] = useState(selectedId);
   const { sendData, loading, error, result } = useSendData();
   const options = workPlaces?.map((item) => (
@@ -41,10 +43,7 @@ const TotalIncomes = ({ selected, selectedId, total, onSelect }) => {
         </SelectInput>
         <span>: {selected}</span>
       </div>
-      <Button
-        disabled={disabled}
-        onClick={() => sendData("income", {})}
-        className={styles.button}>
+      <Button disabled={disabled} onClick={openModal} className={styles.button}>
         افزودن دریافتی
       </Button>
     </Total>
