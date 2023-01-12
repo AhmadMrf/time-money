@@ -1,4 +1,5 @@
-import Button from "../../templates/Button";
+import { useState } from "react";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 import ContentWrapper from "../../templates/ContentWrapper";
 import RowWrapper from "../../templates/RowWrapper";
 import TimeCard from "./TimeCard";
@@ -7,48 +8,42 @@ import Modal from "../../components/modal/Modal";
 import styles from "./StartTab.module.css";
 import FooterStartTab from "./FooterStartTab";
 
-const RECORDES = [
-  {
-    id: 1,
-    place: "مطب",
-    startTime: new Date("2022-12-02T16:50:12"),
-    endTime: null,
-    completed: false,
-    price: 0,
-    description: "",
-  },
-  {
-    id: 2,
-    place: "منزل",
-    startTime: new Date("2022-12-02T09:12:12"),
-    endTime: null,
-    completed: false,
-    price: 0,
-    description: "",
-  },
-  {
-    id: 3,
-    place: "مطب",
-    startTime: new Date("2022-12-02T12:55:12"),
-    endTime: new Date("2022-12-03T13:10:10"),
-    completed: true,
-    price: 200,
-    description: "د . ملکی",
-  },
-];
 const StartTab = () => {
-  let timeCards = RECORDES.map((record) => {
-    if (record.completed)
-      return <CompletedTimeCard key={record.id} {...record} />;
-    return <TimeCard key={record.id} {...record} />;
+  const [_, setLocalStorage] = useState();
+  const { getLocalData } = useLocalStorage();
+  const records = getLocalData("record");
+  let noResult = null;
+  if (!records.length) {
+    noResult = (
+      <RowWrapper className={styles.no_result}>
+        هنوز کاری را شروع نکرده اید.
+      </RowWrapper>
+    );
+  }
+  let timeCards = records.map((record) => {
+    if (record.end_time)
+      return (
+        <CompletedTimeCard
+          setLocalStorage={setLocalStorage}
+          key={record.start_time}
+          {...record}
+        />
+      );
+    return (
+      <TimeCard
+        setLocalStorage={setLocalStorage}
+        key={record.start_time}
+        {...record}
+      />
+    );
   });
   return (
     <ContentWrapper>
       <Modal>
         <div>start modal</div>
       </Modal>
-      <RowWrapper>{timeCards}</RowWrapper>
-      <FooterStartTab />
+      {noResult || <RowWrapper>{timeCards}</RowWrapper>}
+      <FooterStartTab setLocalStorage={setLocalStorage} />
     </ContentWrapper>
   );
 };

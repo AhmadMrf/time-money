@@ -5,23 +5,23 @@ import styles from "./CompletedTimeCard.module.css";
 import { useRef } from "react";
 const CompletedTimeCard = ({
   id,
-  place,
-  startTime,
-  endTime,
+  work_place,
+  start_time,
+  end_time,
   description,
   price,
 }) => {
   let formattedStartTime = new Intl.DateTimeFormat("fa-ir", {
     timeStyle: "short",
-  }).format(startTime);
+  }).format(start_time);
   let formattedEndTime = new Intl.DateTimeFormat("fa-ir", {
     timeStyle: "short",
-  }).format(endTime);
+  }).format(end_time);
   const priceRef = useRef(null);
   const descriptionRef = useRef(null);
   return (
     <Card className={styles.card}>
-      <span className={styles.title}>{place}</span>
+      <span className={styles.title}>{work_place.name}</span>
       <div className={styles.record_info}>
         <div className={styles.times}>
           <span>{formattedStartTime}</span>
