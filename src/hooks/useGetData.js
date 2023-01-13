@@ -3,10 +3,14 @@ import { useState, useEffect } from "react";
 import Parse from "parse/dist/parse.min.js";
 
 const useGetData = (table, ...fields) => {
+  const [newData, setNewData] = useState();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const getData = (id) => {
+    setNewData(id);
+  };
   const query = new Parse.Query(table);
   useEffect(() => {
     setLoading(true);
@@ -34,8 +38,8 @@ const useGetData = (table, ...fields) => {
       }
     }
     getData();
-  }, [table, ...fields]);
-  return { data, loading, error };
+  }, [newData, table, ...fields]);
+  return { getData, data, loading, error };
 };
 
 export default useGetData;

@@ -1,10 +1,9 @@
 import { useState } from "react";
-
 import Parse from "parse/dist/parse.min.js";
 
 const useSendData = () => {
   const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const sendData = async (table, dataObj) => {

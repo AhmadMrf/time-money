@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useGlobalContext } from "../../context/record-context";
+import { useUiContext } from "../../context/ui-context";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
+import useSendData from "../../hooks/useSendData";
 import ContentWrapper from "../../templates/ContentWrapper";
 import RowWrapper from "../../templates/RowWrapper";
 import TimeCard from "./TimeCard";
@@ -11,17 +14,25 @@ import styles from "./StartTab.module.css";
 import FooterStartTab from "./FooterStartTab";
 
 const StartTab = () => {
+  const { getData } = useGlobalContext();
   const [_, setLocalStorage] = useState();
+  const { closeModal } = useUiContext();
   const { getLocalData } = useLocalStorage();
+  const { sendData, loading, error, result } = useSendData();
+  useEffect(() => {
+    if (!loading && !error) {
+      closeModal();
+      getData(result?.id);
+    }
+  }, [loading, error, result?.id]);
   const records = getLocalData("record");
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const workPlaceData = {
       name: e.target.elements.name.value,
     };
-    console.log(workPlaceData);
+    sendData("work_place", workPlaceData);
   };
 
   let noResult = null;
@@ -51,7 +62,10 @@ const StartTab = () => {
   });
   return (
     <ContentWrapper>
-      <Modal form='workPlace' title='عنوان شغل را وارد کنید'>
+      <Modal
+        pending={loading || error}
+        form='workPlace'
+        title='عنوان شغل را وارد کنید'>
         <form onSubmit={handleSubmit} id='workPlace'>
           <Input id='name' name='name' title='عنوان شغل' type='text'></Input>
         </form>

@@ -7,7 +7,7 @@ import useGetData from "../hooks/useGetData";
 const defaultData = {
   inMonthObject: {},
   workPlaces: [],
-  incomes:[],
+  incomes: [],
   error: null,
   loading: true,
   handleMonthTab: (value, date) => {},
@@ -21,7 +21,6 @@ const recordsData = createContext(defaultData);
 
 const RecordProvider = ({ children }) => {
   const [date, setDate] = useState({ year, month });
-
   function handleMonthTab(value, dateInfo) {
     if (dateInfo === "month") {
       setDate({ ...date, month: value });
@@ -35,6 +34,7 @@ const RecordProvider = ({ children }) => {
     error: inMonthError,
   } = useGetInMonthRecords(date.year, date.month);
   const {
+    getData,
     data: workPlaces,
     loading: workPlaceLoading,
     error: workPlaceError,
@@ -53,6 +53,7 @@ const RecordProvider = ({ children }) => {
     loading: { workPlaceLoading, inMonthLoading, incomeLoading },
     error: { inMonthError, workPlaceError, incomeError },
     handleMonthTab,
+    getData,
   };
 
   return (
