@@ -35,3 +35,24 @@
   display: flex;
   justify-content: space-evenly;
 }
+.cancle {
+  color: var(--white-color);
+  background-color: var(--bg-items-navbar-active-6);
+}
+.cancle:hover {
+  background-color: var(--bg-items-navbar-active-7);
+}
+.cancle:active {
+  background-color: var(--bg-items-navbar-active-2);
+}
+
+.submit {
+  color: var(--white-color);
+  background-color: var(--bg-items-navbar-active-5);
+}
+.submit:hover {
+  background-color: var(--bg-items-navbar-active-3);
+}
+.submit:active {
+  background-color: var(--bg-items-navbar-active-2);
+}
