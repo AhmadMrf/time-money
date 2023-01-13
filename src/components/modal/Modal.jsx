@@ -1,24 +1,42 @@
 import { createPortal } from "react-dom";
 import { useEffect } from "react";
 import { useUiContext } from "../../context/ui-context";
+import Button from "../../templates/Button";
 import styles from "./Modal.module.css";
 
 const modalElement = document.getElementById("modal");
-const Modal = ({ children }) => {
+
+const Modal = ({ children, title, form }) => {
   const { isModalOpen, closeModal } = useUiContext();
   const handleCloseModal = (e) => {
     if (e.target.parentElement.id === "modal") closeModal();
   };
   useEffect(() => {
     return () => {
-      closeModal();
+      // closeModal();
     };
   }, []);
+
   if (!isModalOpen) return null;
+
   return createPortal(
-    <div onClick={handleCloseModal} className={styles.modal_wrapper}>
-      {children}
-    </div>,
+    <section onClick={handleCloseModal} className={styles.modal_wrapper}>
+      <div className={styles.content_wrapper}>
+        <span className={styles.title}>{title}</span>
+        {children}
+        <div className={styles.btns}>
+          <Button
+            onClick={() => {
+              closeModal();
+            }}>
+            انصراف
+          </Button>
+          <Button form={form} type='submit'>
+            تایید
+          </Button>
+        </div>
+      </div>
+    </section>,
     modalElement
   );
 };

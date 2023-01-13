@@ -6,8 +6,10 @@ import ContentWrapper from "../../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
 import TotalIncomes from "./TotalIncomes";
 import Button from "../../templates/Button";
+import Input from "../../templates/Input";
 import Modal from "../../components/modal/Modal";
 import styles from "./IncomesTab.module.css";
+import SelectInput from "../../templates/SelectInput";
 
 const IncomesTab = () => {
   const {
@@ -53,6 +55,19 @@ const IncomesTab = () => {
       />
     ));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const incomeData = {
+      date: e.target.elements.date.value,
+      desc: e.target.elements.desc.value,
+      price: e.target.elements.price.value,
+      workPlace: e.target.elements.workPlace.value,
+    };
+    console.log(incomeData);
+  };
+
   let noResult = null;
   if (incomeError) {
     noResult = (
@@ -76,8 +91,23 @@ const IncomesTab = () => {
 
   return (
     <ContentWrapper>
-      <Modal>
-        <div> income modal</div>
+      <Modal form='income' title='اطلاعات دریافتی را وارد کنید'>
+        <form onSubmit={handleSubmit} id='income'>
+          <Input id='date' name='date' title='تاریخ' type='date'></Input>
+          <Input id='desc' name='desc' title='توضیحات' type='text'></Input>
+          <Input id='price' name='price' title='مبلغ' type='number'></Input>
+          <SelectInput
+            className={styles.select}
+            id='workPlace'
+            name='workPlace'
+            title='محل درآمد'>
+            {workPlaces?.map((workPlace) => (
+              <option value={workPlace.id} key={workPlace.id}>
+                {workPlace.name}
+              </option>
+            ))}
+          </SelectInput>
+        </form>
       </Modal>
       {noResult || (
         <RowWrapper>

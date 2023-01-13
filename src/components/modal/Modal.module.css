@@ -12,8 +12,26 @@
   background-color: var(--transparent-black-color);
   padding: 0.5rem;
 }
-.modal_wrapper > div {
-  background-color: var(--white-color);
+.modal_wrapper .content_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  background-color: var(--gray-color);
   padding: 0.5rem;
   border-radius: 2px;
+  min-width: 50%;
+  box-shadow: 0px 0px 25px var(--black-color);
+}
+.modal_wrapper .content_wrapper > * {
+  width: 80%;
+}
+.title {
+  text-align: center;
+}
+.btns {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-evenly;
 }
