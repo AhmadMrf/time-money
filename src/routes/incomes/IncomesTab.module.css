@@ -16,3 +16,10 @@
 .button:active {
   background-color: var(--bg-items-navbar-active-5);
 }
+.select {
+  width: 100%;
+  background-color: var(--white-color);
+}
+.select:hover {
+  background-color: var(--white-color);
+}

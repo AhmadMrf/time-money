@@ -1,8 +1,9 @@
 .input_wrapper {
   /* border: 1px solid black; */
-  margin: .5rem .2rem;
+  margin: 0.5rem 0.2rem;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
 }
 .input {
   min-height: 2.5rem;
@@ -10,5 +11,5 @@
   border: 1px dashed var(--box-shadows);
 }
 .label {
-  padding: .2rem;
+  padding: 0.2rem;
 }
