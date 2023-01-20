@@ -32,7 +32,6 @@ const IncomesTab = () => {
       setSelectedId(firstId);
     }
   }, [workPlaceLoading]);
-  console.log(result);
   useEffect(() => {
     if (!error && !loading) {
       closeModal();
