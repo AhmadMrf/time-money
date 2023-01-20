@@ -8,8 +8,8 @@ const useGetData = (table, ...fields) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  const getData = (id) => {
-    setNewData(id);
+  const getData = (newid) => {
+    setNewData(newid);
   };
   const query = new Parse.Query(table);
   useEffect(() => {

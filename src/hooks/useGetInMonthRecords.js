@@ -10,6 +10,7 @@ const { jy: year } = jalaali.toJalaali(now);
 const { jm: month } = jalaali.toJalaali(now);
 
 const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
+  const [newRecord, setNewRecord] = useState(""); // only for rerender hook
   const { beginMonthDate, endMonthDate, beginDate, endDate } = getTimesForMonth(
     jalaaliYear,
     jalaaliMonth
@@ -29,6 +30,10 @@ const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
   const [records, setRecords] = useState(defaultRecords);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  const getRecords = (newId) => {
+    setNewRecord(newId);
+  };
   useEffect(() => {
     setLoading(true);
     async function getData() {
@@ -65,8 +70,8 @@ const useGetInMonthRecords = (jalaaliYear = year, jalaaliMonth = month) => {
       }
     }
     getData();
-  }, [jalaaliYear, jalaaliMonth]);
-  return { ...records, loading, error };
+  }, [jalaaliYear, jalaaliMonth, newRecord]);
+  return { ...records, loading, error, getRecords };
 };
 
 export default useGetInMonthRecords;

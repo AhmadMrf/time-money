@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
+import { useUiContext } from "../../context/ui-context";
 import { useGlobalContext } from "../../context/record-context";
+import useSendData from "../../hooks/useSendData";
+
 import RowWrapper from "../../templates/RowWrapper";
 import ContentWrapper from "../../templates/ContentWrapper";
 import IncomeRow from "./IncomeRow";
@@ -12,12 +15,16 @@ import styles from "./IncomesTab.module.css";
 import SelectInput from "../../templates/SelectInput";
 
 const IncomesTab = () => {
+  const { closeModal } = useUiContext();
   const {
     incomes,
     workPlaces,
     loading: { incomeLoading, workPlaceLoading },
     error: { incomeError },
+    getIncomeData,
   } = useGlobalContext();
+
+  const { result, error, loading, sendData } = useSendData();
   const [selectedId, setSelectedId] = useState(undefined);
   useEffect(() => {
     if (!workPlaceLoading) {
@@ -25,6 +32,13 @@ const IncomesTab = () => {
       setSelectedId(firstId);
     }
   }, [workPlaceLoading]);
+  console.log(result);
+  useEffect(() => {
+    if (!error && !loading) {
+      closeModal();
+      getIncomeData(result?.id);
+    }
+  }, [error, loading, result]);
   const selectedPrice = (selectedWorkPlaceId) => {
     if (selectedWorkPlaceId === "all") {
       return incomes.reduce((total, { price }) => total + price, 0);
@@ -60,12 +74,17 @@ const IncomesTab = () => {
     e.preventDefault();
 
     const incomeData = {
-      date: e.target.elements.date.value,
-      desc: e.target.elements.desc.value,
-      price: e.target.elements.price.value,
-      workPlace: e.target.elements.workPlace.value,
+      income_date: new Date(e.target.elements.date.value),
+      description: e.target.elements.desc.value,
+      price: +e.target.elements.price.value,
+      w_p_id: {
+        __type: "Pointer",
+        className: "work_place",
+        objectId: e.target.elements.workPlace.value,
+      },
     };
-    console.log(incomeData);
+
+    sendData("income", incomeData);
   };
 
   let noResult = null;
@@ -91,7 +110,10 @@ const IncomesTab = () => {
 
   return (
     <ContentWrapper>
-      <Modal form='income' title='اطلاعات دریافتی را وارد کنید'>
+      <Modal
+        pending={loading || error}
+        form='income'
+        title='اطلاعات دریافتی را وارد کنید'>
         <form onSubmit={handleSubmit} id='income'>
           <Input id='date' name='date' title='تاریخ' type='date'></Input>
           <Input id='desc' name='desc' title='توضیحات' type='text'></Input>

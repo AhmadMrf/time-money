@@ -14,7 +14,7 @@ import styles from "./StartTab.module.css";
 import FooterStartTab from "./FooterStartTab";
 
 const StartTab = () => {
-  const { getData } = useGlobalContext();
+  const { getWorkPlaceData } = useGlobalContext();
   const [_, setLocalStorage] = useState();
   const { closeModal } = useUiContext();
   const { getLocalData } = useLocalStorage();
@@ -22,7 +22,7 @@ const StartTab = () => {
   useEffect(() => {
     if (!loading && !error) {
       closeModal();
-      getData(result?.id);
+      getWorkPlaceData(result?.id);
     }
   }, [loading, error, result?.id]);
   const records = getLocalData("record");

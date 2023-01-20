@@ -29,18 +29,20 @@ const RecordProvider = ({ children }) => {
     }
   }
   const {
+    getRecords,
     inMonthObject,
     loading: inMonthLoading,
     error: inMonthError,
   } = useGetInMonthRecords(date.year, date.month);
   const {
-    getData,
+    getData: getWorkPlaceData,
     data: workPlaces,
     loading: workPlaceLoading,
     error: workPlaceError,
   } = useGetData("work_place", "name");
 
   const {
+    getData: getIncomeData,
     data: incomes,
     loading: incomeLoading,
     error: incomeError,
@@ -53,7 +55,9 @@ const RecordProvider = ({ children }) => {
     loading: { workPlaceLoading, inMonthLoading, incomeLoading },
     error: { inMonthError, workPlaceError, incomeError },
     handleMonthTab,
-    getData,
+    getIncomeData,
+    getWorkPlaceData,
+    getRecords,
   };
 
   return (

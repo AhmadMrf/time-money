@@ -18,7 +18,6 @@ const DailyTab = () => {
   } = useGlobalContext();
   const daysRecords = mergeDayRecords(inMonthObject);
   const dayRecord = daysRecords[day];
-  console.log(dayRecord);
   const activeDays = Object.keys(daysRecords);
   const dailyRowsObject = dayRecord?.reduce((total, item) => {
     if (!total[item.work_place.id]) {
