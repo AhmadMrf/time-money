@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/time-money/static/css/main.58ecde84.css",
-    "main.js": "/time-money/static/js/main.b566ad13.js",
+    "main.js": "/time-money/static/js/main.55282103.js",
     "index.html": "/time-money/index.html",
     "main.58ecde84.css.map": "/time-money/static/css/main.58ecde84.css.map",
-    "main.b566ad13.js.map": "/time-money/static/js/main.b566ad13.js.map"
+    "main.55282103.js.map": "/time-money/static/js/main.55282103.js.map"
   },
   "entrypoints": [
     "static/css/main.58ecde84.css",
-    "static/js/main.b566ad13.js"
+    "static/js/main.55282103.js"
   ]
 }
