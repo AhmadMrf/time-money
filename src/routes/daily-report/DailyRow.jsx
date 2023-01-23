@@ -1,3 +1,4 @@
+import { showTime } from "../../utils/showTime";
 import Card from "../../templates/Card";
 import styles from "./DailyRow.module.css";
 const DailyRow = ({ title, className, records }) => {
@@ -14,7 +15,7 @@ const DailyRow = ({ title, className, records }) => {
       <tr key={dailyRow.start_time.getTime()}>
         <td>{startTime}</td>
         <td>{endTime}</td>
-        <td>{dailyRow.time}</td>
+        <td>{showTime(dailyRow.time)}</td>
         <td>{dailyRow.description}</td>
         <td>{dailyRow.price}</td>
       </tr>

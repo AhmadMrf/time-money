@@ -18,7 +18,7 @@ const FooterStartTab = ({ setLocalStorage }) => {
   const { openModal } = useUiContext();
   const { setLocalData } = useLocalStorage();
   useEffect(() => {
-    if (workPlaceError || workPlaceLoading) return;
+    if (workPlaceError || workPlaceLoading || !workPlaces.length) return;
     setWorkPlaceSelect(workPlaces[0].id);
   }, [workPlaceLoading, workPlaceError]);
 
@@ -41,9 +41,11 @@ const FooterStartTab = ({ setLocalStorage }) => {
       <SelectInput
         value={workPlaceSelect}
         onChange={handleSelect}
-        disabled={disabled}>
+        disabled={disabled || !workPlaces.length}>
         {workPlaceLoading ? (
           <option>در حا دریافت اطلاعات</option>
+        ) : !workPlaces.length ? (
+          <option>اطلاعاتی وارد نشده </option>
         ) : (
           workPlaces.map((workPlace) => (
             <option value={workPlace.id} key={workPlace.id}>
@@ -53,7 +55,7 @@ const FooterStartTab = ({ setLocalStorage }) => {
         )}
       </SelectInput>
       <Button
-        disabled={disabled}
+        disabled={disabled || !workPlaces.length}
         onClick={handleStartRecord}
         className={styles.button}>
         شروع

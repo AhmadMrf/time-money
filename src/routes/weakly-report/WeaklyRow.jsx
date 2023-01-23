@@ -1,3 +1,4 @@
+import { showTime } from "../../utils/showTime";
 import Row from "../../templates/Row";
 import styles from "./WeaklyRow.module.css";
 
@@ -10,7 +11,7 @@ const WeaklyRow = ({ weekDay, date, price, time, outOfMonth, empty }) => {
       <span>{weekDay}</span>
       <span>{date}</span>
       <span>{price}</span>
-      <span>{time}</span>
+      <span>{showTime(time)}</span>
     </Row>
   );
 };

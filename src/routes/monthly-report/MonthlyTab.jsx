@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGlobalContext } from "../../context/record-context";
 import { monthes, years } from "../../data/dates";
-
+import { showTime } from "../../utils/showTime";
 import ContentWrapper from "../../templates/ContentWrapper";
 import RowWrapper from "../../templates/RowWrapper";
 import SelectInput from "../../templates/SelectInput";
@@ -43,6 +43,8 @@ const MonthlyTab = () => {
   const createTableCells = (field) => {
     return totalRecords?.map((record) => {
       if (field === "name") return <th key={record.id}>{record.name}</th>;
+      if (field === "time")
+        return <td key={record.id}>{showTime(record[field])}</td>;
       return <td key={record.id}>{record[field]}</td>;
     });
   };
@@ -108,7 +110,7 @@ const MonthlyTab = () => {
               <tr>
                 <td>زمان</td>
                 {createTableCells("time")}
-                <td>{calcTotals("time")}</td>
+                <td>{showTime(calcTotals("time"))}</td>
               </tr>
               <tr>
                 <td>مبلغ</td>

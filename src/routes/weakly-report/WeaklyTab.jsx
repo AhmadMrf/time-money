@@ -32,6 +32,7 @@ const WeaklyTab = () => {
     setSepratedWeekIndex(index);
   };
   const weekTotals = (key) => {
+    if (!weekObject) return "-";
     return weekObject?.recordes.reduce((total, item) => {
       const option = item[key];
       return total + option;

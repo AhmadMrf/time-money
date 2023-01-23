@@ -1,4 +1,5 @@
 import { useGlobalContext } from "../../context/record-context";
+import { showTime } from "../../utils/showTime";
 import SelectInput from "../../templates/SelectInput";
 import Total from "../../templates/Total";
 import styles from "./TotalWeak.module.css";
@@ -49,7 +50,7 @@ const TotalWeak = ({
         {selectOptions}
       </SelectInput>
       <span className={styles.price}>مبلغ کل : {weekIncome}</span>
-      <span className={styles.time}>زمان کل : {weekTime}</span>
+      <span className={styles.time}>زمان کل : {showTime(weekTime)}</span>
     </Total>
   );
 };

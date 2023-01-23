@@ -1,5 +1,6 @@
 import { useGlobalContext } from "../../context/record-context";
 import { jalaaliMonthLength } from "jalaali-js";
+import { showTime } from "../../utils/showTime";
 import { monthes } from "../../data/dates";
 import SelectInput from "../../templates/SelectInput";
 import Total from "../../templates/Total";
@@ -29,7 +30,7 @@ const TotalDaily = ({
         <SelectInput
           // defaultValue={defaultSelected || 1}
           onChange={handleSelect}
-          disabled={inMonthLoading || inMonthError}
+          disabled={inMonthLoading || inMonthError || !activeDays.length}
           className={styles.select}>
           {Array.from({ length: monthLength }).map((_, i) => {
             const enable = activeDays.find((day) => day - 1 === i);
@@ -48,7 +49,8 @@ const TotalDaily = ({
           {monthes[inMonthObject.month - 1]} {inMonthObject.year}
         </span>
       </div>
-      <span>مبلغ کل : {totalPrice}</span> <span>زمان کل : {totalTime}</span>
+      <span>مبلغ کل : {totalPrice}</span>{" "}
+      <span>زمان کل : {showTime(totalTime)}</span>
     </Total>
   );
 };
