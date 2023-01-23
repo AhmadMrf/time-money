@@ -8,9 +8,7 @@ const DailyRow = ({ title, className, records }) => {
     }).format(dailyRow.start_time);
     const endTime = new Intl.DateTimeFormat("fa-ir", {
       timeStyle: "short",
-    }).format(
-      new Date(dailyRow.start_time.getTime() + dailyRow.time * 3600000)
-    );
+    }).format(new Date(dailyRow.start_time.getTime() + dailyRow.time));
     return (
       <tr key={dailyRow.start_time.getTime()}>
         <td>{startTime}</td>

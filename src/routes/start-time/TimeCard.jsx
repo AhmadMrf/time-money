@@ -13,7 +13,6 @@ const TimeCard = ({ setLocalStorage, work_place, start_time, id }) => {
     setLocalStorage(newData);
   };
   const handleSubmit = () => {
-    // const localData = getLocalData();
     const end_time = Date.now();
     const newRecord = { id, work_place, start_time, end_time };
     deletLocalData("record", id);
